@@ -192,6 +192,7 @@ claude plugin validate ./mod/bench-watch && claude plugin test ./mod/bench-watch
 ## Method and caveats
 
 - **Same inputs:** both models embed exactly the same texts, images and audio, truncated at 16,000 characters. Each gets its documented task prompt: a text prefix for EmbeddingGemma 2, a `task_type` for Gemini.
+  - Correction: [Google's embeddings docs](https://ai.google.dev/gemini-api/docs/embeddings) say `task_type` is not supported on `gemini-embedding-2` and recommend putting the task instruction in the text as a prefix instead (for example `task: search result | query: ...`). The API accepted the field without error, but this run sent Gemini no prefix, so Gemini effectively got no task instruction. That may explain part of its low STS-B similarity score (0.771 vs 0.875).
 - **Runtimes:** local text runs on llama.cpp (Q8_0 GGUF, Metal). Local images, audio and video run on PyTorch (MPS, bfloat16; the model card warns float16 silently produces NaNs). Q8_0, BF16 and PyTorch scored the same on SciFact.
 - **Sampling:** for FiQA, Quora and StackOverflow, every judged document for 300 sampled queries is kept, then the corpus is filled to 8,000–10,000 documents with seeded random distractors.
 - **Contamination:** these are public datasets that either model may have seen in training. Absolute scores are optimistic; the head-to-head comparison is the reliable part.

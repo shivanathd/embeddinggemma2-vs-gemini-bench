@@ -109,7 +109,7 @@ export const register: Register = on => {
         <Text bold>Scoreboard <Text color="green">local</Text> vs <Text color="blue">cloud</Text></Text>
         {s.rows.map(r => (
           <Text wrap="truncate-end">
-            {r.label.padEnd(15)}<Text color="green">{bar(r.loc, w)}</Text> {r.loc.toFixed(3)}  <Text color="blue">{bar(r.cld, w)}</Text> {r.cld.toFixed(3)} {Math.abs(r.cld - r.loc) < 0.03 ? <Text dimColor>tie</Text> : r.loc > r.cld ? <Text color="green">local</Text> : <Text color="blue">cloud</Text>}
+            {r.label.padEnd(15)}<Text color="green">{bar(r.loc, w)}</Text> {r.loc.toFixed(3)}  <Text color="blue">{bar(r.cld, w)}</Text> {r.cld.toFixed(3)} {r.label.includes('HR fit') ? <Text color="yellow">neither</Text> : Math.abs(r.cld - r.loc) < 0.03 ? <Text dimColor>tie</Text> : r.loc > r.cld ? <Text color="green">local</Text> : <Text color="blue">cloud</Text>}
           </Text>
         ))}
         <Text> </Text>
