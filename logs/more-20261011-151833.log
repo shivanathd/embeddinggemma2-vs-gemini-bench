@@ -1,0 +1,14 @@
+run start Sun Oct 11 15:18:33 IST 2026 load { 9.93 14.03 60.83 }
+codesearch {'bm25': 0.6351, 'loc': 0.956, 'loc_hybrid': 0.8103, 'cloud': 0.9713, 'cloud_hybrid': 0.8128}
+nfcorpus {'bm25': 0.3208, 'loc': 0.3538, 'loc_hybrid': 0.3684, 'cloud': 0.4305, 'cloud_hybrid': 0.3931}
+scifact {'bm25': 0.6863, 'loc': 0.8526, 'loc_hybrid': 0.7875, 'cloud': 0.9002, 'cloud_hybrid': 0.8003}
+quora {'bm25': 0.975, 'loc': 0.9907, 'loc_hybrid': 0.9872, 'cloud': 0.9927, 'cloud_hybrid': 0.9912}
+stackoverflow {'bm25': 0.7251, 'loc': 0.898, 'loc_hybrid': 0.8324, 'cloud': 0.9815, 'cloud_hybrid': 0.8664}
+fiqa {'bm25': 0.4139, 'loc': 0.5085, 'loc_hybrid': 0.529, 'cloud': 0.7281, 'cloud_hybrid': 0.6124}
+legal {'bm25': 0.7099, 'loc': 0.7709, 'loc_hybrid': 0.7914, 'cloud': 0.7344, 'cloud_hybrid': 0.7573}
+== hybrid done in 12.4s
+{'dataset': 'banking77 test, 1000 tickets, 77 intents', 'metric': 'V-measure (KMeans, k=77, 5 seeds)', 'loc_768': {'v_measure': 0.9115598263261706, 'sd': 0.003005905065397143}, 'loc_256': {'v_measure': 0.9171872041425819, 'sd': 0.005004363162686354}, 'cloud_768': {'v_measure': 0.9260097410209032, 'sd': 0.004739313727111361}, 'cloud_256': {'v_measure': 0.9201331142991316, 'sd': 0.005701439663253686}}
+== clustering done in 7.1s
+loc {'text_query_raw': {'top10_image_share': 0.1185, 'R@1': 0.804, 'R@10': 0.973}, 'text_query_calibrated': {'top10_image_share': 0.4165, 'R@1': 0.883, 'R@10': 0.996}, 'photo_query_raw': {'top10_image_share': 0.9123, 'R@1': 0.239, 'R@10': 0.727}, 'photo_query_calibrated': {'top10_image_share': 0.5264, 'R@1': 0.797, 'R@10': 0.989}}
+cloud {'text_query_raw': {'top10_image_share': 0.0617, 'R@1': 0.747, 'R@10': 0.949}, 'text_query_calibrated': {'top10_image_share': 0.5611, 'R@1': 0.932, 'R@10': 0.996}, 'photo_query_raw': {'top10_image_share': 1.0, 'R@1': 0.0, 'R@10': 0.0}, 'photo_query_calibrated': {'top10_image_share': 0.5601, 'R@1': 0.784, 'R@10': 0.994}}
+== calibration done in 1.1s

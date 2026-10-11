@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Which Embedding Should You Use",
+    "output": ".archify/workflow-which-embedding-20261011-1505/which-embedding.html",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "ask", "label": "Ask in order" },
+    { "id": "skip", "label": "No embeddings needed", "variant": "exception" },
+    { "id": "cloud", "label": "Use Gemini Embedding 2" },
+    { "id": "local", "label": "Use EmbeddingGemma 2 locally" }
+  ],
+  "mainPath": ["q1", "q2", "q3", "q4", "q5", "loc"],
+  "nodes": [
+    { "id": "q1", "lane": "ask", "col": 0, "type": "external", "label": "Non-English?", "sublabel": "Urdu, Arabic, Tamil, Malayalam", "width": 150 },
+    { "id": "q2", "lane": "ask", "col": 1, "type": "external", "label": "Finance or dev Q&A?", "sublabel": "answers, not documents", "width": 150 },
+    { "id": "q3", "lane": "ask", "col": 2, "type": "external", "label": "Sound effects?", "sublabel": "or voice in Hindi, Arabic", "width": 150 },
+    { "id": "q4", "lane": "ask", "col": 3, "type": "external", "label": "Judging fit?", "sublabel": "e.g. resume vs job", "width": 150 },
+    { "id": "q5", "lane": "ask", "col": 4, "type": "external", "label": "Near-exact duplicates?", "sublabel": "same words, reordered", "width": 150 },
+    { "id": "rubric", "lane": "skip", "col": 3, "type": "security", "label": "LLM rubric", "sublabel": "both models near chance", "tag": "AUC 0.50-0.58", "width": 150 },
+    { "id": "bm25", "lane": "skip", "col": 4, "type": "security", "label": "Keyword search", "sublabel": "BM25 scored 0.975", "tag": "free, instant", "width": 150 },
+    { "id": "cml", "lane": "cloud", "col": 0, "type": "cloud", "label": "Cloud, multilingual", "sublabel": "+8 pts translation match", "width": 150 },
+    { "id": "cqa", "lane": "cloud", "col": 1, "type": "cloud", "label": "Cloud, Q&A search", "sublabel": "finance +0.21 nDCG", "width": 150 },
+    { "id": "csnd", "lane": "cloud", "col": 2, "type": "cloud", "label": "Cloud, audio", "sublabel": "sounds 56% vs 26% top-1", "width": 150 },
+    { "id": "loc", "lane": "local", "col": 5, "type": "frontend", "label": "Local model", "sublabel": "legal, code, photos, PDFs", "tag": "13 ms, free, private", "width": 160 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "q1", "to": "q2", "label": "no", "variant": "emphasis" },
+    { "id": "e2", "from": "q2", "to": "q3", "label": "no", "variant": "emphasis" },
+    { "id": "e3", "from": "q3", "to": "q4", "label": "no", "variant": "emphasis" },
+    { "id": "e4", "from": "q4", "to": "q5", "label": "no", "variant": "emphasis" },
+    { "id": "e5", "from": "q5", "to": "loc", "label": "no", "variant": "emphasis" },
+    { "id": "y1", "from": "q1", "to": "cml", "label": "yes", "role": "branch" },
+    { "id": "y2", "from": "q2", "to": "cqa", "label": "yes", "role": "branch" },
+    { "id": "y3", "from": "q3", "to": "csnd", "label": "yes", "role": "branch" },
+    { "id": "y4", "from": "q4", "to": "rubric", "label": "yes", "role": "branch", "variant": "security" },
+    { "id": "y5", "from": "q5", "to": "bm25", "label": "yes", "role": "branch", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Local wins or ties", "items": ["Legal clauses, sentence similarity, PDF page images", "Duplicates, voice notes, code search within 1.3 pts", "45x faster per query and nothing leaves the Mac"] },
+    { "dot": "cyan", "title": "Cloud wins clearly", "items": ["Finance Q&A, developer Q&A, medical research", "Urdu, Malayalam, Arabic and Tamil text", "Sound effects and non-English spoken queries"] },
+    { "dot": "rose", "title": "Neither", "items": ["Resume-to-job fit is close to a coin flip for both", "Mixed photo + text indexes need per-type calibration"] }
+  ]
+}

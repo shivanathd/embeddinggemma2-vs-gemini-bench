@@ -1,0 +1,22 @@
+host mac | 15:00  up 21 days,  3:16, 12 users, load averages: 22.39 173.35 190.05
+1 38.8 1.7
+4 60.2 6.9
+16 245.1 25.1
+{
+ "text_p50_loc": 13.343979022465646,
+ "text_p95_loc": 16.452512610703707,
+ "text_p50_cloud": 617.0729586156085,
+ "text_p95_cloud": 999.5377900311709,
+ "qps_loc_c1": 38.83870806447545,
+ "qps_cloud_c1": 1.6592865518461157,
+ "qps_loc_c4": 60.20802720442553,
+ "qps_cloud_c4": 6.89993536904827,
+ "qps_loc_c16": 245.07155656968956,
+ "qps_cloud_c16": 25.14430309288598,
+ "index_docs_per_s_loc": 30.40058879561263,
+ "index_docs_per_s_cloud": 31.331447229198346,
+ "load_avg": "{ 10.09 108.70 160.90 }"
+}
+  image_query: {'loc_p50_ms': 249, 'loc_p95_ms': 973, 'cloud_p50_ms': 850, 'cloud_p95_ms': 952}
+  audio_query: {'loc_p50_ms': 178, 'loc_p95_ms': 617, 'cloud_p50_ms': 830, 'cloud_p95_ms': 890}
+{"latency": {"image_query": {"loc_p50_ms": 249, "loc_p95_ms": 973, "cloud_p50_ms": 850, "cloud_p95_ms": 952}, "audio_query": {"loc_p50_ms": 178, "loc_p95_ms": 617, "cloud_p50_ms": 830, "cloud_p95_ms": 890}, "wall_s": 50.9}}

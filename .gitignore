@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+cache/
+gguf/
+llamacpp/
+assets/speech/
+assets/esc50/
+assets/libri/
+assets/fleurs/
+assets/pdf/
+assets/video/*.mp4
+assets/video/clips/
+assets/video/frames/
+assets/video/f1/
+assets/video/contact.jpg
+.DS_Store
+.env

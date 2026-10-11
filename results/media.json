@@ -1,0 +1,334 @@
+{
+ "photos": {
+  "use_case": "Photo library search (Flickr30k, 1000 photos x 5 human captions)",
+  "images": 1000,
+  "queries": 5000,
+  "loc_t2i_768": {
+   "R@1": 0.8676,
+   "R@5": 0.9786,
+   "R@10": 0.9878,
+   "MRR": 0.9172
+  },
+  "loc_t2i_256": {
+   "R@1": 0.8486,
+   "R@5": 0.9738,
+   "R@10": 0.984,
+   "MRR": 0.904
+  },
+  "loc_t2i_128": {
+   "R@1": 0.7642,
+   "R@5": 0.9292,
+   "R@10": 0.9608,
+   "MRR": 0.837
+  },
+  "loc_i2t_768": {
+   "R@1": 0.943,
+   "R@5": 0.998,
+   "R@10": 1.0,
+   "MRR": 0.9672
+  },
+  "loc_bias": {
+   "text_q_top10_image_share": 0.118,
+   "text_q_median_rank_image": 3,
+   "text_q_median_rank_caption": 1,
+   "image_q_top10_image_share": 0.912,
+   "image_q_median_rank_own_caption": 4,
+   "image_q_own_caption_top10": 0.727
+  },
+  "cloud_t2i_768": {
+   "R@1": 0.8894,
+   "R@5": 0.982,
+   "R@10": 0.9916,
+   "MRR": 0.9311
+  },
+  "cloud_t2i_256": {
+   "R@1": 0.8094,
+   "R@5": 0.9556,
+   "R@10": 0.9748,
+   "MRR": 0.8736
+  },
+  "cloud_t2i_128": {
+   "R@1": 0.6456,
+   "R@5": 0.859,
+   "R@10": 0.911,
+   "MRR": 0.7399
+  },
+  "cloud_i2t_768": {
+   "R@1": 0.966,
+   "R@5": 0.999,
+   "R@10": 1.0,
+   "MRR": 0.9802
+  },
+  "cloud_bias": {
+   "text_q_top10_image_share": 0.062,
+   "text_q_median_rank_image": 10,
+   "text_q_median_rank_caption": 1,
+   "image_q_top10_image_share": 1.0,
+   "image_q_median_rank_own_caption": 1000,
+   "image_q_own_caption_top10": 0.0
+  },
+  "diff_t2i_R@1": [
+   0.02179999999999993,
+   0.013399999999999967,
+   0.029799999999999938
+  ],
+  "text_only_model": {
+   "cosine_vs_full_model_min": 0.9961,
+   "t2i_R@1_first500": 0.858,
+   "full_model_R@1_first500": 0.858
+  },
+  "wall_s": 657.7
+ },
+ "multilingual_photos": {
+  "use_case": "Photo search in 6 languages, typed and spoken (50 queries each, 1000 photos)",
+  "typed": {
+   "en": {
+    "loc": {
+     "R@1": 0.9,
+     "R@5": 0.96,
+     "R@10": 0.98,
+     "MRR": 0.9297
+    },
+    "cloud": {
+     "R@1": 0.92,
+     "R@5": 0.98,
+     "R@10": 1.0,
+     "MRR": 0.9533
+    }
+   },
+   "de": {
+    "loc": {
+     "R@1": 0.88,
+     "R@5": 0.96,
+     "R@10": 0.96,
+     "MRR": 0.9086
+    },
+    "cloud": {
+     "R@1": 0.88,
+     "R@5": 1.0,
+     "R@10": 1.0,
+     "MRR": 0.925
+    }
+   },
+   "es": {
+    "loc": {
+     "R@1": 0.86,
+     "R@5": 0.98,
+     "R@10": 0.98,
+     "MRR": 0.9123
+    },
+    "cloud": {
+     "R@1": 0.9,
+     "R@5": 1.0,
+     "R@10": 1.0,
+     "MRR": 0.9367
+    }
+   },
+   "hi": {
+    "loc": {
+     "R@1": 0.84,
+     "R@5": 0.96,
+     "R@10": 0.96,
+     "MRR": 0.8936
+    },
+    "cloud": {
+     "R@1": 0.92,
+     "R@5": 0.98,
+     "R@10": 1.0,
+     "MRR": 0.9385
+    }
+   },
+   "ar": {
+    "loc": {
+     "R@1": 0.86,
+     "R@5": 0.92,
+     "R@10": 0.94,
+     "MRR": 0.8914
+    },
+    "cloud": {
+     "R@1": 0.86,
+     "R@5": 0.94,
+     "R@10": 1.0,
+     "MRR": 0.9006
+    }
+   },
+   "ml": {
+    "loc": {
+     "R@1": 0.48,
+     "R@5": 0.68,
+     "R@10": 0.82,
+     "MRR": 0.5905
+    },
+    "cloud": {
+     "R@1": 0.92,
+     "R@5": 0.98,
+     "R@10": 0.98,
+     "MRR": 0.9453
+    }
+   }
+  },
+  "spoken": {
+   "en": {
+    "loc": {
+     "R@1": 0.92,
+     "R@5": 0.94,
+     "R@10": 0.98,
+     "MRR": 0.9323
+    },
+    "cloud": {
+     "R@1": 0.92,
+     "R@5": 1.0,
+     "R@10": 1.0,
+     "MRR": 0.9507
+    }
+   },
+   "hi": {
+    "loc": {
+     "R@1": 0.46,
+     "R@5": 0.76,
+     "R@10": 0.82,
+     "MRR": 0.5841
+    },
+    "cloud": {
+     "R@1": 0.88,
+     "R@5": 0.92,
+     "R@10": 0.96,
+     "MRR": 0.902
+    }
+   },
+   "ar": {
+    "loc": {
+     "R@1": 0.34,
+     "R@5": 0.68,
+     "R@10": 0.72,
+     "MRR": 0.4854
+    },
+    "cloud": {
+     "R@1": 0.68,
+     "R@5": 0.88,
+     "R@10": 0.9,
+     "MRR": 0.7807
+    }
+   }
+  },
+  "wall_s": 68.2
+ },
+ "sounds": {
+  "use_case": "Sound search (ESC-50: 50 everyday sounds, 10 clips each)",
+  "clips": 500,
+  "classes": 50,
+  "loc": {
+   "label_to_clip_top1": 0.26,
+   "label_to_clip_P@10": 0.198,
+   "zero_shot_clip_classification": 0.23,
+   "weakest_classes": [
+    "airplane",
+    "brushing_teeth",
+    "can_opening",
+    "cat",
+    "coughing"
+   ]
+  },
+  "cloud": {
+   "label_to_clip_top1": 0.56,
+   "label_to_clip_P@10": 0.344,
+   "zero_shot_clip_classification": 0.332,
+   "weakest_classes": [
+    "fireworks",
+    "insects",
+    "pig",
+    "train",
+    "water_drops"
+   ]
+  },
+  "diff_zero_shot": [
+   0.10200000000000001,
+   0.05199999999999999,
+   0.15200000000000002
+  ],
+  "chance": 0.02,
+  "wall_s": 189.9
+ },
+ "speech": {
+  "use_case": "Voice notes: match a recording to its transcript (LibriSpeech, 73 clips)",
+  "clips": 73,
+  "loc": {
+   "text_to_audio": {
+    "R@1": 1.0,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 1.0
+   },
+   "audio_to_text": {
+    "R@1": 1.0,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 1.0
+   }
+  },
+  "cloud": {
+   "text_to_audio": {
+    "R@1": 1.0,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 1.0
+   },
+   "audio_to_text": {
+    "R@1": 1.0,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 1.0
+   }
+  },
+  "wall_s": 93.6
+ },
+ "pdf": {
+  "use_case": "Find the right PDF page from page images (3 papers, 43 pages)",
+  "pages": 43,
+  "queries": 18,
+  "loc": {
+   "page_image": {
+    "R@1": 0.7778,
+    "R@5": 0.9444,
+    "R@10": 1.0,
+    "MRR": 0.8444
+   },
+   "extracted_text": {
+    "R@1": 0.8333,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 0.9167
+   }
+  },
+  "cloud": {
+   "page_image": {
+    "R@1": 0.6111,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 0.7917
+   },
+   "extracted_text": {
+    "R@1": 0.7222,
+    "R@5": 0.8889,
+    "R@10": 0.8889,
+    "MRR": 0.8029
+   }
+  },
+  "wall_s": 75.1
+ },
+ "latency": {
+  "image_query": {
+   "loc_p50_ms": 249,
+   "loc_p95_ms": 973,
+   "cloud_p50_ms": 850,
+   "cloud_p95_ms": 952
+  },
+  "audio_query": {
+   "loc_p50_ms": 178,
+   "loc_p95_ms": 617,
+   "cloud_p50_ms": 830,
+   "cloud_p95_ms": 890
+  },
+  "wall_s": 50.9
+ }
+}

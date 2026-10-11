@@ -1,0 +1,51 @@
+run start Sun Oct 11 16:47:16 IST 2026 load { 12.83 32.03 63.31 }
+codesearch {'bm25': 0.6351, 'loc': 0.956, 'loc_hybrid': 0.8103, 'cloud': 0.9686, 'cloud_hybrid': 0.8115}
+nfcorpus {'bm25': 0.3208, 'loc': 0.3538, 'loc_hybrid': 0.3684, 'cloud': 0.4272, 'cloud_hybrid': 0.393}
+scifact {'bm25': 0.6863, 'loc': 0.8526, 'loc_hybrid': 0.7875, 'cloud': 0.8964, 'cloud_hybrid': 0.7979}
+quora {'bm25': 0.975, 'loc': 0.9907, 'loc_hybrid': 0.9872, 'cloud': 0.9924, 'cloud_hybrid': 0.9914}
+stackoverflow {'bm25': 0.7251, 'loc': 0.898, 'loc_hybrid': 0.8324, 'cloud': 0.9827, 'cloud_hybrid': 0.8689}
+fiqa {'bm25': 0.4139, 'loc': 0.5085, 'loc_hybrid': 0.529, 'cloud': 0.7187, 'cloud_hybrid': 0.6069}
+legal {'bm25': 0.7099, 'loc': 0.7709, 'loc_hybrid': 0.7914, 'cloud': 0.7316, 'cloud_hybrid': 0.7518}
+== hybrid done in 14.6s
+{'dataset': 'banking77 test, 1000 tickets, 77 intents', 'metric': 'V-measure (KMeans, k=77, 5 seeds)', 'loc_768': {'v_measure': 0.9115598263261706, 'sd': 0.003005905065397143}, 'loc_256': {'v_measure': 0.9171872041425819, 'sd': 0.005004363162686354}, 'cloud_768': {'v_measure': 0.9260097410209032, 'sd': 0.004739313727111361}, 'cloud_256': {'v_measure': 0.9201331142991316, 'sd': 0.005701439663253686}}
+== clustering done in 5.7s
+loc {'text_query_raw': {'top10_image_share': 0.1185, 'R@1': 0.804, 'R@10': 0.973}, 'text_query_calibrated': {'top10_image_share': 0.4165, 'R@1': 0.883, 'R@10': 0.996}, 'photo_query_raw': {'top10_image_share': 0.9123, 'R@1': 0.239, 'R@10': 0.727}, 'photo_query_calibrated': {'top10_image_share': 0.5264, 'R@1': 0.797, 'R@10': 0.989}}
+cloud {'text_query_raw': {'top10_image_share': 0.0617, 'R@1': 0.747, 'R@10': 0.949}, 'text_query_calibrated': {'top10_image_share': 0.5611, 'R@1': 0.932, 'R@10': 0.996}, 'photo_query_raw': {'top10_image_share': 1.0, 'R@1': 0.0, 'R@10': 0.0}, 'photo_query_calibrated': {'top10_image_share': 0.5601, 'R@1': 0.784, 'R@10': 0.994}}
+== calibration done in 1.1s
+{'dataset': 'Sprint duplicate questions (5000 pairs, 1000 duplicates)', 'metric': 'average precision; best-F1 cosine threshold', 'loc': {'ap': 0.9932279195570085, 'best_f1': 0.9659931000492853, 'threshold': 0.8888133764266968, 'precision': 0.9523809523809523, 'recall': 0.98, 'dup_cos_median': 0.951316237449646, 'nondup_cos_median': 0.7990269660949707}, 'cloud': {'ap': 0.9953801893661427, 'best_f1': 0.9727822580645161, 'threshold': 0.7861188054084778, 'precision': 0.9806910569105691, 'recall': 0.965, 'dup_cos_median': 0.8852067589759827, 'nondup_cos_median': 0.5868156552314758}}
+== dedupe done in 0.4s
+short {'loc': 0.9223706814663033, 'cloud': 0.9511705627275611}
+start {'loc': 0.7429255656981253, 'cloud': 0.6905988984921821}
+middle {'loc': 0.33092104226654356, 'cloud': 0.316533093735304}
+end {'loc': 0.3108923726942233, 'cloud': 0.3369044366480308}
+== long_docs done in 0.2s
+codesearch {'qwen': 0.9409838572089356, 'g1': 0.9648576051373517, 'g1_3072': 0.9660052012331314}
+nfcorpus {'qwen': 0.35515821967087285, 'g1': 0.42717994627675937, 'g1_3072': 0.4306281573603223}
+scifact {'qwen': 0.6970536073668054, 'g1': 0.8997078538432012, 'g1_3072': 0.897090642919214}
+quora {'qwen': 0.987951001939896, 'g1': 0.9932845648754429, 'g1_3072': 0.9933820417909038}
+stackoverflow {'qwen': 0.9018412564300896, 'g1': 0.9698643835794823, 'g1_3072': 0.9692871994399608}
+fiqa {'qwen': 0.5083726202780935, 'g1': 0.786941736994283, 'g1_3072': 0.7980662013763529}
+legal {'qwen': 0.7247998231793412, 'g1': 0.8044722190076857, 'g1_3072': 0.8065110080644775}
+tatoeba ara {'qwen': 0.794, 'g1': 0.944}
+tatoeba hin {'qwen': 0.84, 'g1': 0.98}
+tatoeba mal {'qwen': 0.6273653566229985, 'g1': 0.9854439592430859}
+tatoeba tam {'qwen': 0.5667752442996743, 'g1': 0.9218241042345277}
+tatoeba urd {'qwen': 0.622, 'g1': 0.952}
+tatoeba fra {'qwen': 0.929, 'g1': 0.961}
+== baselines done in 4.4s
+loc {'photo_only': 0.92, 'caption_only': 0.768, 'photo_plus_caption': 0.88}
+cloud {'photo_only': 0.935, 'caption_only': 0.742, 'photo_plus_caption': 0.899}
+== mixed_input done in 21.3s
+loc {'R@1': 0.7222222222222222, 'R@3': 0.8888888888888888}
+cloud {'R@1': 0.6111111111111112, 'R@3': 0.8888888888888888}
+== video done in 0.2s
+English {'loc': {'speech_to_own_transcript_R@1': 1.0, 'speech_to_english_R@1': 1.0}, 'cloud': {'speech_to_own_transcript_R@1': 0.9866666666666667, 'speech_to_english_R@1': 0.9866666666666667}}
+Hindi {'loc': {'speech_to_own_transcript_R@1': 0.98, 'speech_to_english_R@1': 0.96}, 'cloud': {'speech_to_own_transcript_R@1': 0.9933333333333333, 'speech_to_english_R@1': 0.94}}
+Arabic {'loc': {'speech_to_own_transcript_R@1': 0.9866666666666667, 'speech_to_english_R@1': 0.96}, 'cloud': {'speech_to_own_transcript_R@1': 0.9866666666666667, 'speech_to_english_R@1': 0.9533333333333334}}
+Malayalam {'loc': {'speech_to_own_transcript_R@1': 1.0, 'speech_to_english_R@1': 0.9333333333333333}, 'cloud': {'speech_to_own_transcript_R@1': 1.0, 'speech_to_english_R@1': 0.9266666666666666}}
+== fleurs done in 1.3s
+q4 scifact 0.8354125666128465
+q4 legal 0.7761444344536081
+q4 cpu 4 threads 30.876916483975947
+q8 cpu 4 threads 36.62993758916855
+== q4_cpu done in 200.3s

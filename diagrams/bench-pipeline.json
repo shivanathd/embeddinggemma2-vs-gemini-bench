@@ -1,0 +1,195 @@
+{
+ "schema_version": 1,
+ "diagram_type": "dataflow",
+ "meta": {
+  "title": "How the Embedding Benchmark Runs",
+  "output": ".archify/dataflow-bench-pipeline-20261011-1450/bench-pipeline.html",
+  "quality_profile": "showcase",
+  "viewBox": [
+   1080,
+   600
+  ]
+ },
+ "stages": [
+  {
+   "label": "Test data"
+  },
+  {
+   "label": "Prepare"
+  },
+  {
+   "label": "Embed"
+  },
+  {
+   "label": "Store"
+  },
+  {
+   "label": "Score"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "textsets",
+   "type": "external",
+   "label": "Text test sets",
+   "sublabel": "11 public sets",
+   "stage": 0,
+   "row": 0,
+   "tag": "MTEB / BEIR"
+  },
+  {
+   "id": "mediasets",
+   "type": "external",
+   "label": "Media test sets",
+   "sublabel": "photos, sounds, PDFs",
+   "stage": 0,
+   "row": 2,
+   "tag": "+ spoken, translated"
+  },
+  {
+   "id": "prompts",
+   "type": "backend",
+   "label": "Prompts + sampling",
+   "sublabel": "prefix or task_type",
+   "stage": 1,
+   "row": 1,
+   "tag": "same inputs"
+  },
+  {
+   "id": "local",
+   "type": "frontend",
+   "label": "EmbeddingGemma 2",
+   "sublabel": "on this Mac",
+   "stage": 2,
+   "row": 0,
+   "tag": "llama.cpp / MPS"
+  },
+  {
+   "id": "cloud",
+   "type": "cloud",
+   "label": "gemini-embedding-2",
+   "sublabel": "Google API",
+   "stage": 2,
+   "row": 2,
+   "tag": "100 per call"
+  },
+  {
+   "id": "cache",
+   "type": "database",
+   "label": "Embedding cache",
+   "sublabel": "one .npy per run",
+   "stage": 3,
+   "row": 1,
+   "tag": "re-runs free"
+  },
+  {
+   "id": "metrics",
+   "type": "backend",
+   "label": "Metrics",
+   "sublabel": "nDCG, R@k, AUC",
+   "stage": 4,
+   "row": 0,
+   "tag": "bootstrap CI"
+  },
+  {
+   "id": "report",
+   "type": "frontend",
+   "label": "Report + logs",
+   "sublabel": "results/*.json",
+   "stage": 4,
+   "row": 2,
+   "tag": "this page"
+  }
+ ],
+ "flows": [
+  {
+   "id": "f-text",
+   "from": "textsets",
+   "to": "prompts",
+   "label": "queries + docs",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f-media",
+   "from": "mediasets",
+   "to": "prompts",
+   "label": "clips, pages, voice",
+   "variant": "default"
+  },
+  {
+   "id": "f-pl",
+   "from": "prompts",
+   "to": "local",
+   "label": "text prefixes",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f-pc",
+   "from": "prompts",
+   "to": "cloud",
+   "label": "task types",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f-lc",
+   "from": "local",
+   "to": "cache",
+   "label": "768d vectors",
+   "variant": "default"
+  },
+  {
+   "id": "f-cc",
+   "from": "cloud",
+   "to": "cache",
+   "label": "3072d vectors",
+   "variant": "default"
+  },
+  {
+   "id": "f-cm",
+   "from": "cache",
+   "to": "metrics",
+   "label": "truncate + score",
+   "variant": "emphasis"
+  },
+  {
+   "id": "f-mr",
+   "from": "metrics",
+   "to": "report",
+   "label": "paired diffs",
+   "variant": "emphasis",
+   "labelAt": [
+    1005,
+    300
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "dot": "emerald",
+   "title": "Fair comparison",
+   "items": [
+    "Both models see identical inputs, truncated at 16k characters",
+    "Each model gets its own recommended task prompt",
+    "Vectors are L2-normalised and compared by cosine"
+   ]
+  },
+  {
+   "dot": "cyan",
+   "title": "Statistics",
+   "items": [
+    "Per-query scores for both models on the same queries",
+    "2,000 paired bootstrap resamples give a 95% interval",
+    "A difference counts only if the interval excludes zero"
+   ]
+  },
+  {
+   "dot": "amber",
+   "title": "Reproducible",
+   "items": [
+    "Every embedding is cached, so a re-run costs nothing",
+    "Raw logs and result JSON ship with the report",
+    "Hardware load is recorded at the start of each run"
+   ]
+  }
+ ]
+}

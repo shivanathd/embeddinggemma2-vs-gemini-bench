@@ -1,0 +1,1 @@
+{'docs': 47153, 'queries': 1000, '768d': {'hnsw_recall@10': 0.963, 'build_s': 18.3, 'ms_per_query': 0.52}, '256d': {'hnsw_recall@10': 0.977, 'build_s': 8.3, 'ms_per_query': 0.04}}

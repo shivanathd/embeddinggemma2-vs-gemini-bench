@@ -1,0 +1,21 @@
+host mac | Apple M5 Max | 14:23  up 21 days,  2:39, 10 users, load averages: 8.82 18.89 25.47
+[legal] 154 docs, 396 queries
+  embedded 154 x loc [doc] in 10.0s (15/s)
+  embedded 396 x loc [qa] in 2.5s (161/s)
+  embedded 154 x cloud [doc] in 3.0s (51/s)
+  embedded 396 x cloud [qa] in 3.3s (119/s)
+{"legal": {"use_case": "Legal: question to contract clause", "dataset": "mteb/legalbench_consumer_contracts_qa", "docs": 154, "queries": 396, "metric": "nDCG@10", "loc_index_docs_per_s": 15.4, "cloud_index_docs_per_s": 50.9, "loc_768": {"ndcg10": 0.7709, "mrr10": 0.7169, "recall10": 0.9394}, "cloud_768": {"ndcg10": 0.7316, "mrr10": 0.6784, "recall10": 0.9015}, "loc_512": {"ndcg10": 0.7748, "mrr10": 0.7222, "recall10": 0.9394}, "cloud_512": {"ndcg10": 0.7004, "mrr10": 0.6503, "recall10": 0.8586}, "loc_256": {"ndcg10": 0.7643, "mrr10": 0.7104, "recall10": 0.9343}, "cloud_256": {"ndcg10": 0.6896, "mrr10": 0.6407, "recall10": 0.8434}, "loc_128": {"ndcg10": 0.7162, "mrr10": 0.6585, "recall10": 0.899}, "cloud_128": {"ndcg10": 0.5946, "mrr10": 0.5421, "recall10": 0.7601}, "cloud_3072": {"ndcg10": 0.7344}, "diff_768": [-0.03928069368314113, -0.07227206593704401, -0.009511996145098192], "wall_s": 19.7}}
+[banking77] train 1232 (16/intent), test 1000
+  embedded 1232 x loc [cls] in 6.2s (200/s)
+  embedded 1000 x loc [cls] in 8.4s (119/s)
+Traceback (most recent call last):
+  File "~/embed-bench/suite_text.py", line 232, in <module>
+    t0 = time.time(); r = TASKS[t](); r["wall_s"] = round(time.time() - t0, 1)
+                          ~~~~~~~~^^
+  File "~/embed-bench/suite_text.py", line 148, in banking77
+    clf = LogisticRegression(max_iter=2000).fit(trunc(Xtr, d), tr.label)
+                                                               ^^^^^^^^
+  File "~/embed-bench/.venv/lib/python3.13/site-packages/pandas/core/generic.py", line 6194, in __getattr__
+    return object.__getattribute__(self, name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'label'

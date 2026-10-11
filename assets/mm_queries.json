@@ -1,0 +1,456 @@
+{
+ "idx": [
+  15,
+  30,
+  36,
+  42,
+  60,
+  64,
+  92,
+  96,
+  145,
+  161,
+  189,
+  190,
+  194,
+  247,
+  310,
+  405,
+  457,
+  462,
+  463,
+  476,
+  487,
+  520,
+  524,
+  541,
+  551,
+  573,
+  601,
+  609,
+  614,
+  628,
+  630,
+  638,
+  644,
+  649,
+  665,
+  669,
+  710,
+  756,
+  799,
+  812,
+  823,
+  829,
+  851,
+  875,
+  877,
+  886,
+  900,
+  911,
+  946,
+  987
+ ],
+ "queries": [
+  {
+   "en": "A lady in a black top with glasses is sprinkling powdered sugar on a bundt cake",
+   "hi": "चश्मा पहने काली टॉप वाली एक महिला बंड केक पर पीसी हुई चीनी छिड़क रही है।",
+   "ar": "امرأة ترتدي قميصًا أسود ونظارات ترش السكر الناعم على كعكة البوندت.",
+   "ml": "കറുത്ത ടോപ്പും കണ്ണടയും ധരിച്ച ഒരു സ്ത്രീ ബണ്ട് കേക്കിൽ പൊടിച്ച പഞ്ചസാര വിതറുന്നു.",
+   "de": "Eine Frau in einem schwarzen Oberteil mit Brille streut Puderzucker auf einen Napfkuchen.",
+   "es": "Una mujer con una camiseta negra y gafas está espolvoreando azúcar en polvo sobre un bizcocho."
+  },
+  {
+   "en": "A young man in a black and yellow jacket is gazing at something and smiling",
+   "hi": "काले और पीले रंग की जैकेट पहने एक युवक किसी चीज की ओर देख रहा है और मुस्कुरा रहा है।",
+   "ar": "شاب يرتدي سترة سوداء وصفراء يحدق في شيء ما ويبتسم.",
+   "ml": "കറുപ്പും മഞ്ഞയും നിറത്തിലുള്ള ജാക്കറ്റ് ധരിച്ച ഒരു ചെറുപ്പക്കാരൻ എന്തോ നോക്കി പുഞ്ചിരിക്കുന്നു.",
+   "de": "Ein junger Mann in einer schwarz-gelben Jacke starrt auf etwas und lächelt.",
+   "es": "Un hombre joven con una chaqueta negra y amarilla contempla algo y sonríe."
+  },
+  {
+   "en": "A young boy rides a bike down a snow covered road",
+   "hi": "एक छोटा लड़का बर्फ से ढकी सड़क पर साइकिल चला रहा है।",
+   "ar": "صبي صغير يركب دراجة في طريق مغطى بالثلوج.",
+   "ml": "മഞ്ഞ് മൂടിയ റോഡിലൂടെ ഒരു ചെറുപ്പക്കാരൻ ബൈക്ക് ഓടിക്കുന്നു.",
+   "de": "Ein junger Junge fährt mit dem Fahrrad eine verschneite Straße hinunter.",
+   "es": "Un niño pequeño anda en bicicleta por una carretera cubierta de nieve."
+  },
+  {
+   "en": "Two young children eating a snack and playing in the grass",
+   "hi": "दो छोटे बच्चे नाश्ता कर रहे हैं और घास में खेल रहे हैं।",
+   "ar": "طفلان صغيران يأكلان وجبة خفيفة ويلعبان في العشب.",
+   "ml": "രണ്ട് കൊച്ചുകുട്ടികൾ ലഘുഭക്ഷണം കഴിക്കുകയും പുല്ലിൽ കളിക്കുകയും ചെയ്യുന്നു.",
+   "de": "Zwei kleine Kinder essen einen Snack und spielen im Gras.",
+   "es": "Dos niños pequeños comen un tentempié y juegan en la hierba."
+  },
+  {
+   "en": "A guy in shorts and a white t-shirt sits on the ground in front of a grill with hotdogs on it",
+   "hi": "निक्कर और सफेद टी-शर्ट पहने एक लड़का ग्रिल के सामने जमीन पर बैठा है, जिस पर हॉटडॉग रखे हैं।",
+   "ar": "رجل يرتدي سروالاً قصيرًا وقميصًا أبيض يجلس على الأرض أمام شواية عليها نقانق.",
+   "ml": "ഷോട്സും വെള്ള ടി-ഷർട്ടും ധരിച്ച ഒരാൾ ഹോട്ടഡോഗുകൾ വെച്ച ഗ്രില്ലിന് മുന്നിൽ നിലത്ത് ഇരിക്കുന്നു.",
+   "de": "Ein Typ in Shorts und einem weißen T-Shirt sitzt auf dem Boden vor einem Grill mit Hotdogs darauf.",
+   "es": "Un chico en pantalones cortos y camiseta blanca se sienta en el suelo frente a una parrilla con perritos calientes."
+  },
+  {
+   "en": "Seven climbers are ascending a rock face whilst another man stands holding the rope",
+   "hi": "सात पर्वतारोही एक चट्टान पर चढ़ रहे हैं जबकि दूसरा आदमी रस्सी पकड़े खड़ा है।",
+   "ar": "يتسلق سبعة متسلقين واجهة صخرية بينما يقف رجل آخر ممسكًا بالحبل.",
+   "ml": "ഏഴ് മലകയറ്റക്കാർ ഒരു പാറക്കെട്ടിലേക്ക് കയറുമ്പോൾ മറ്റൊരു മനുഷ്യൻ കയർ പിടിച്ച് നിൽക്കുന്നു.",
+   "de": "Sieben Kletterer steigen eine Felswand hinauf, während ein anderer Mann das Seil hält.",
+   "es": "Siete escaladores están ascendiendo por una pared rocosa mientras otro hombre permanece de pie sujetando la cuerda."
+  },
+  {
+   "en": "In a crowded concert a man in white is approaching the main singer who is wearing a yellow shirt",
+   "hi": "भीड़भरे कॉन्सर्ट में, सफेद कपड़ों में एक आदमी पीले रंग की शर्ट पहने मुख्य गायक के पास जा रहा है।",
+   "ar": "في حفل موسيقي مزدحم، يقترب رجل يرتدي الملابس البيضاء من المغني الرئيسي الذي يرتدي قميصًا أصفر.",
+   "ml": "ജനനിബിഡമായ ഒരു സംഗീതകച്ചേരിയിൽ വെള്ള വസ്ത്രം ധരിച്ച ഒരാൾ മഞ്ഞ ഷർട്ട് ധരിച്ച പ്രധാന ഗായകന്റെ അടുത്തേക്ക് വരുന്നു.",
+   "de": "In einem überfüllten Konzert nähert sich ein weiß gekleideter Mann dem Hauptsänger, der ein gelbes Hemd trägt.",
+   "es": "En un concierto concurrido, un hombre vestido de blanco se acerca al cantante principal, que lleva una camisa amarilla."
+  },
+  {
+   "en": "Two men wearing hard hats are in a construction area",
+   "hi": "सेफ्टी हैट पहने दो आदमी निर्माण क्षेत्र में हैं।",
+   "ar": "رجلان يرتديان خوذات أمان في منطقة بناء.",
+   "ml": "ഹെൽമറ്റ് ധരിച്ച രണ്ട് പുരുഷൻമാർ ഒരു നിർമ്മാണ മേഖലയിലാണ്.",
+   "de": "Zwei Männer mit Schutzhelmen befinden sich auf einer Baustelle.",
+   "es": "Dos hombres con cascos de protección están en una zona de construcción."
+  },
+  {
+   "en": "The man  who is wearing the handkerchief  is performing a task with the tub while the woman watches",
+   "hi": "जिस आदमी ने रुमाल बांध रखा है, वह टब के साथ काम कर रहा है जबकि महिला देख रही है।",
+   "ar": "الرجل الذي يرتدي منديل الرأس يقوم بمهام في الحوض بينما تراقبه المرأة.",
+   "ml": "കർച്ചീഫ് ധരിച്ചയാൾ ടബ്ബ് ഉപയോഗിച്ച് ഒരു ജോലി ചെയ്യുമ്പോൾ സ്ത്രീ അത് നോക്കിനിൽക്കുന്നു.",
+   "de": "Der Mann, der das Taschentuch trägt, führt eine Aufgabe mit der Wanne aus, während die Frau zusieht.",
+   "es": "El hombre que lleva el pañuelo realiza una tarea con la tina mientras la mujer observa."
+  },
+  {
+   "en": "A girl in pigtails splashes in the shallow water",
+   "hi": "दो चोटी वाली एक लड़की उथले पानी में छपछपा रही है।",
+   "ar": "فتاة بضفائر تلهو وترش الماء في المياه الضحلة.",
+   "ml": "ഇരട്ടപ്പിന്നൽ ഇട്ട ഒരു പെൺകുട്ടി ആഴമില്ലാത്ത വെള്ളത്തിൽ തുള്ളിക്കളിക്കുന്നു.",
+   "de": "Ein Mädchen mit Zöpfen platscht im flachen Wasser.",
+   "es": "Una niña con coletas chapotea en el agua poco profunda."
+  },
+  {
+   "en": "At the bakery  the fat old baker sleeps while his apprentice rubs the flour out of his eyes  seated beside him",
+   "hi": "बेकरी में मोटा बूढ़ा बेकर सो रहा है जबकि उसके पास बैठा उसका चेला अपनी आंखों से आटा पोंछ रहा है।",
+   "ar": "في المخبز، ينام الخباز المسن السمين بينما يمسح متدربه الدقيق من عينيه جالسًا بجانبه.",
+   "ml": "ബേക്കറിയിൽ, തടിച്ച പ്രായമായ ബെക്കർ ഉറങ്ങുമ്പോൾ, അവന്റെ അടുത്തായി ഇരിക്കുന്ന അപ്രന്റീസ് അവന്റെ കണ്ണുകളിൽ നിന്ന് മാവ് തടവി മാറ്റുന്നു.",
+   "de": "In der Bäckerei schläft der dicke alte Bäcker, während sein Lehrling, der neben ihm sitzt, sich das Mehl aus den Augen reibt.",
+   "es": "En la panadería, el viejo y gordo panadero duerme mientras su aprendiz, sentado a su lado, se frota la harina de los ojos."
+  },
+  {
+   "en": "Several men are sitting by a river conversing with one another while a boat drifts by them",
+   "hi": "कई आदमी नदी के किनारे बैठकर एक-दूसरे से बातचीत कर रहे हैं जबकि एक नाव उनके पास से बह रही है।",
+   "ar": "يجلس عدة رجال بجانب النهر يتحدثون مع بعضهم البعض بينما تمر قارب بالقرب منهم.",
+   "ml": "ഒരു ബോട്ട് ഒഴുകിപ്പോകുമ്പോൾ കുറച്ച് ആളുകൾ നദിക്കരയിലിരുന്ന് പരസ്പരം സംസാരിക്കുന്നു.",
+   "de": "Mehrere Männer sitzen an einem Fluss und unterhalten sich, während ein Boot an ihnen vorbeitreibt.",
+   "es": "Varios hombres están sentados junto a un río conversando entre sí mientras un barco pasa flotando a su lado."
+  },
+  {
+   "en": "Many men ride their bicycles through some puddles around a curve during a race",
+   "hi": "एक दौड़ के दौरान कई आदमी मोड़ पर कुछ गड्ढों के बीच से अपनी साइकिल चला रहे हैं।",
+   "ar": "يركب العديد من الرجال دراجاتهم عبر بعض البرك المائية حول المنعطف أثناء السباق.",
+   "ml": "ഒരു മത്സരത്തിനിടയിൽ വളവിലുള്ള ചില വെള്ളക്കെട്ടുകളിലൂടെ നിരവധി ആളുകൾ സൈക്കിൾ ഓടിക്കുന്നു.",
+   "de": "Viele Männer fahren während eines Rennens mit ihren Fahrrädern durch einige Pfützen um eine Kurve.",
+   "es": "Muchos hombres conducen sus bicicletas a través de algunos charcos en una curva durante una carrera."
+  },
+  {
+   "en": "The children played on the four wheeler in the field",
+   "hi": "बच्चों ने खेत में फोर-व्हीलर पर खेला।",
+   "ar": "لعب الأطفال على السيارة رباعية الدفع في الحقل.",
+   "ml": "കുട്ടികൾ വയലിൽ ഫോർ വീലറിൽ കളിച്ചു.",
+   "de": "Die Kinder spielten auf dem Quad im Feld.",
+   "es": "Los niños jugaron en el vehículo de cuatro ruedas en el campo."
+  },
+  {
+   "en": "A boy in yellow glasses and red-haired girl pose for the camera",
+   "hi": "पीले चश्मे पहना एक लड़का और लाल बालों वाली लड़की कैमरे के लिए पोज़ दे रहे हैं।",
+   "ar": "صبي يرتدي نظارات صفراء وفتاة ذات شعر أحمر يلتقطان صورة للكاميرا.",
+   "ml": "മഞ്ഞ കണ്ണട ധരിച്ച ഒരു ആൺകുട്ടിയും ചുവന്ന മുടിയുള്ള പെൺകുട്ടിയും ക്യാമറയ്ക്ക് പോസ് ചെയ്യുന്നു.",
+   "de": "Ein Junge mit gelber Brille und ein rothaariges Mädchen posieren für die Kamera.",
+   "es": "Un niño con gafas amarillas y una niña de pelo rojo posan para la cámara."
+  },
+  {
+   "en": "Two brown dogs runs through the water",
+   "hi": "दो भूरे कुत्ते पानी में दौड़ रहे हैं।",
+   "ar": "كلبان بنيان يركضان عبر الماء.",
+   "ml": "രണ്ട് തവിട്ടുനിറത്തിലുള്ള നായ്ക്കൾ വെള്ളത്തിലൂടെ ഓടുന്നു.",
+   "de": "Zwei braune Hunde laufen durch das Wasser.",
+   "es": "Dos perros marrones corren por el agua."
+  },
+  {
+   "en": "A boy in a red and blue shirt painting a log",
+   "hi": "लाल और नीली शर्ट पहना एक लड़का लकड़ी का लट्ठा पेंट कर रहा है।",
+   "ar": "صبي يرتدي قميصًا أحمر وأزرق يدهن جذع شجرة.",
+   "ml": "ചുവപ്പും നീലയും ഷർട്ട് ധരിച്ച ഒരു ആൺകുട്ടി മരത്തടി പെയിന്റ് ചെയ്യുന്നു.",
+   "de": "Ein Junge in einem rot-blauen Hemd bemalt einen Baumstamm.",
+   "es": "Un niño con una camiseta roja y azul pintando un tronco."
+  },
+  {
+   "en": "A group of indigenous people relaxing outside of their hut",
+   "hi": "मूल निवासियों का एक समूह अपनी झोपड़ी के बाहर आराम कर रहा है।",
+   "ar": "مجموعة من السكان الأصليين يستريحون خارج كوخهم.",
+   "ml": "ഒരു കൂട്ടം ആദിവാസികൾ അവരുടെ കുടിലിന് പുറത്ത് വിശ്രമിക്കുന്നു.",
+   "de": "Eine Gruppe von Eingeborenen entspannt sich vor ihrer Hütte.",
+   "es": "Un grupo de indígenas descansando fuera de su cabaña."
+  },
+  {
+   "en": "A little boy in a suit jacket is playing with a ball",
+   "hi": "सूट की जैकेट पहने एक छोटा लड़का गेंद से खेल रहा है।",
+   "ar": "صبي صغير يرتدي سترة بدلة يلعب بالكرة.",
+   "ml": "സൂട്ട് ജാക്കറ്റ് ധരിച്ച ഒരു ചെറിയ ആൺകുട്ടി പന്ത് ഉപയോഗിച്ച് കളിക്കുന്നു.",
+   "de": "Ein kleiner Junge in einer Anzugjacke spielt mit einem Ball.",
+   "es": "Un niño pequeño con una chaqueta de traje está jugando con una pelota."
+  },
+  {
+   "en": "A young boy in hawaiian style swim trunks holds a plastic bucket and shovel on the shore of the ocean",
+   "hi": "हवाई शैली का स्विम ट्रंक पहने एक छोटा लड़का समुद्र के किनारे प्लास्टिक की बाल्टी और फावड़ा पकड़े हुए है।",
+   "ar": "صبي صغير يرتدي سروال سباحة على الطراز الهواوي يحمل دلوًا بلاستيكيًا ومجرفة على شاطئ المحيط.",
+   "ml": "ഹവായിയൻ ശൈലിയിലുള്ള സ്വിം ട്രങ്ക് ധരിച്ച ഒരു ചെറുപ്പക്കാരൻ സമുദ്രതീരത്ത് പ്ലാസ്റ്റിക് ബക്കറ്റും തവികളും പിടിച്ചിരിക്കുന്നു.",
+   "de": "Ein junger Junge in Badehosen im Hawaii-Stil hält einen Plastikeimer und eine Schaufel am Meeresufer.",
+   "es": "Un niño pequeño con un bañador de estilo hawaiano sostiene un cubo de plástico y una pala en la orilla del océano."
+  },
+  {
+   "en": "A mother and son read a book about dinosaurs together",
+   "hi": "एक माँ और बेटा एक साथ डायनासोर के बारे में किताब पढ़ रहे हैं।",
+   "ar": "أم وابنها يقرأن كتابًا عن الديناصورات معًا.",
+   "ml": "അമ്മയും മകനും ചേർന്ന് ദിനോസറുകളെക്കുറിച്ചുള്ള ഒരു പുസ്തകം വായിക്കുന്നു.",
+   "de": "Eine Mutter und ihr Sohn lesen gemeinsam ein Buch über Dinosaurier.",
+   "es": "Una madre y su hijo leen juntos un libro sobre dinosaurios."
+  },
+  {
+   "en": "A man playing with his dog on the blanket on the floor",
+   "hi": "एक आदमी फर्श पर कंबल पर अपने कुत्ते के साथ खेल रहा है।",
+   "ar": "رجل يلعب مع كلبه على البطانية على الأرض.",
+   "ml": "നിലത്തു വിരിച്ച ബ്ലാങ്കറ്റിൽ ഒരാൾ തന്റെ നായയോടൊപ്പം കളിക്കുന്നു.",
+   "de": "Ein Mann spielt mit seinem Hund auf der Decke auf dem Boden.",
+   "es": "Un hombre jugando con su perro sobre una manta en el suelo."
+  },
+  {
+   "en": "Two men on a construction site with a one way sign in the foreground",
+   "hi": "निर्माण स्थल पर दो आदमी, जिसके अग्रभूमि में एक 'वन वे' का साइनबोर्ड है।",
+   "ar": "رجلان في موقع بناء مع علامة طريق اتجاه واحد في المقدمة.",
+   "ml": "മുൻവശത്ത് വൺവേ സൈനുള്ള ഒരു നിർമ്മാണ സ്ഥലത്ത് രണ്ട് പുരുഷന്മാർ.",
+   "de": "Zwei Männer auf einer Baustelle mit einem Einbahnstraßenschild im Vordergrund.",
+   "es": "Dos hombres en una obra en construcción con una señal de sentido único en primer plano."
+  },
+  {
+   "en": "A balding man with glasses is blowing a bubble gum bubble in a dimly lit room",
+   "hi": "चश्मा पहने एक गंजा आदमी कम रोशनी वाले कमरे में बबल गम का गुब्बारा फुला रहा है।",
+   "ar": "رجل أصلع يرتدي نظارات ينفخ فقاعة علكة في غرفة خافتة الإضاءة.",
+   "ml": "കണ്ണട ധരിച്ച തലമുടി കൊഴിഞ്ഞ ഒരാൾ വെളിച്ചം കുറഞ്ഞ മുറിയിലിരുന്ന് ബബിൾ ഗം ഊതി വീർപ്പിക്കുന്നു.",
+   "de": "Ein kahlköpfiger Mann mit Brille bläst in einem schwach beleuchteten Raum eine Kaugummiblase.",
+   "es": "Un hombre calvo con gafas está haciendo una pompa de chicle en una habitación con poca luz."
+  },
+  {
+   "en": "Two bakery employees wearing red aprons are preparing food",
+   "hi": "लाल एप्रन पहने बेकरी के दो कर्मचारी खाना बना रहे हैं।",
+   "ar": "موظفان في المخبز يرتديان مآزر حمراء يقومان بإعداد الطعام.",
+   "ml": "ചുവന്ന ഏപ്രണുകൾ ധരിച്ച രണ്ട് ബേക്കറി ജീവനക്കാർ ഭക്ഷണം തയ്യാറാക്കുന്നു.",
+   "de": "Zwei Bäckereangestellte mit roten Schürzen bereiten Essen zu.",
+   "es": "Dos empleados de la panadería con delantales rojos están preparando comida."
+  },
+  {
+   "en": "A big tan dog runs on grass with a big stick in his mouth",
+   "hi": "एक बड़ा भूरा कुत्ता मुंह में बड़ी लकड़ी दबाकर घास पर दौड़ रहा है।",
+   "ar": "كلب أسمر كبير يركض على العشب وفي فمه عصا كبيرة.",
+   "ml": "വായായിൽ വലിയൊരു വടിയുമായി ഒരു വലിയ തവിട്ടുനിറത്തിലുള്ള നായ പുല്ലിലൂടെ ഓടുന്നു.",
+   "de": "Ein großer hellbrauner Hund läuft mit einem großen Stock im Maul über das Gras.",
+   "es": "Un perro grande de color café corre por el césped con un palo grande en la boca."
+  },
+  {
+   "en": "Large amount of people sitting up against the walls of buildings",
+   "hi": "इमारतों की दीवारों से सटकर बड़ी संख्या में लोग बैठे हैं।",
+   "ar": "عدد كبير من الناس يجلسون متكئين على جدران المباني.",
+   "ml": "കെട്ടിടങ്ങളുടെ ചുവരുകളിൽ ചാരി നിരവധിയാളുകൾ ഇരിക്കുന്നു.",
+   "de": "Eine große Anzahl von Menschen sitzt an den Wänden von Gebäuden.",
+   "es": "Una gran cantidad de personas sentadas contra las paredes de los edificios."
+  },
+  {
+   "en": "A group of men  women  and children is clustered in a sunny area with benches and a statue",
+   "hi": "पुरुषों, महिलाओं और बच्चों का एक समूह बेंचों और एक मूर्ति वाले धूप वाले क्षेत्र में इकट्ठा है।",
+   "ar": "تجمعت مجموعة من الرجال والنساء والأطفال في منطقة مشمسة بها مقاعد وتمثال.",
+   "ml": "ബെഞ്ചുകളും പ്രതിമയുമുള്ള വെയിലുള്ള ഒരു സ്ഥലത്ത് പുരുഷന്മാരും സ്ത്രീകളും കുട്ടികളും അടങ്ങുന്ന ഒരു സംഘം തടിച്ചുകൂടിയിരിക്കുന്നു.",
+   "de": "Eine Gruppe von Männern, Frauen und Kindern drängt sich in einem sonnigen Bereich mit Bänken und einer Statue.",
+   "es": "Un grupo de hombres, mujeres y niños está congregado en una zona soleada con bancos y una estatua."
+  },
+  {
+   "en": "A man in a black baseball cap and necklace is sitting down with a keyboard on his lap",
+   "hi": "काली बेसबॉल कैप और हार पहना एक आदमी गोद में कीबोर्ड रखकर बैठा है।",
+   "ar": "رجل يرتدي قبعة بيسبول سوداء وقلادة يجلس وعلى حجره لوحة مفاتيح.",
+   "ml": "കറുത്ത ബേസ്ബോൾ ക്യാപ്പും മാലയും ധരിച്ച ഒരാൾ മടിയിൽ കീബോർഡുമായി ഇരിക്കുന്നു.",
+   "de": "Ein Mann mit schwarzer Baseballkappe und Halskette sitzt mit einer Tastatur auf dem Schoß.",
+   "es": "Un hombre con una gorra de béisbol negra y un collar está sentado con un teclado en el regazo."
+  },
+  {
+   "en": "Men are working on getting tiles ready to use on a building",
+   "hi": "आदमी किसी इमारत पर इस्तेमाल करने के लिए टाइलें तैयार करने में लगे हैं।",
+   "ar": "يعمل الرجال على إعداد البلاط للاستخدام في المبنى.",
+   "ml": "ഒരു കെട്ടിടത്തിൽ ഉപയോഗിക്കാനായി ആളുകൾ ടൈലുകൾ സജ്ജമാക്കുന്ന ജോലി ചെയ്യുന്നു.",
+   "de": "Männer arbeiten daran, Fliesen für die Verwendung an einem Gebäude vorzubereiten.",
+   "es": "Los hombres están trabajando para preparar azulejos para usarlos en un edificio."
+  },
+  {
+   "en": "This man bravely cuts down trees on the job",
+   "hi": "यह आदमी काम के दौरान बहादुरी से पेड़ काटता है।",
+   "ar": "هذا الرجل يقطع الأشجار بشجاعة في عمله.",
+   "ml": "ഈ മനുഷ്യൻ ജോലിസ്ഥലത്ത് ധൈര്യത്തോടെ മരങ്ങൾ മുറിച്ചുമാറ്റുന്നു.",
+   "de": "Dieser Mann fällt bei der Arbeit tapfer Bäume.",
+   "es": "Este hombre corta árboles valientemente en su trabajo."
+  },
+  {
+   "en": "A male performer is juggling with 4 plastic balls",
+   "hi": "एक पुरुष कलाकार 4 प्लास्टिक की गेंदों से करतब कर रहा है।",
+   "ar": "مؤدٍ رجل يقوم بالشعوذة بأربع كرات بلاستيكية.",
+   "ml": "ഒരു പുരുഷ കലാകാരൻ 4 പ്ലാസ്റ്റിക് പന്തുകൾ ഉപയോഗിച്ച് ജഗ്ലിംഗ് ചെയ്യുന്നു.",
+   "de": "Ein männlicher Darsteller jongliert mit 4 Plastikbällen.",
+   "es": "Un artista masculino está haciendo malabares con 4 pelotas de plástico."
+  },
+  {
+   "en": "Four men are walking up a steep rural road",
+   "hi": "चार आदमी एक खड़ी ग्रामीण सड़क पर चढ़ रहे हैं।",
+   "ar": "أربعة رجال يسيرون صعودًا في طريق ريفي شديد الانحدار.",
+   "ml": "നാല് പുരുഷൻമാർ കുത്തനെയുള്ള ഒരു ഗ്രാമീണ റോഡിലൂടെ നടക്കുന്നു.",
+   "de": "Vier Männer gehen eine steile Landstraße hinauf.",
+   "es": "Cuatro hombres caminan por una empinada carretera rural."
+  },
+  {
+   "en": "A group of girls in matching brown dresses and sandals dance in unison",
+   "hi": "एक जैसे भूरे रंग की पोशाक और सैंडल पहने लड़कियों का एक समूह एक साथ नृत्य कर रहा है।",
+   "ar": "مجموعة من الفتيات يرتدين فساتين وصنادل بنية متطابقة يرقصن في انسجام تام.",
+   "ml": "ഒരേപോലെയുള്ള തവിട്ടുനിറത്തിലുള്ള വസ്ത്രങ്ങളും ചെരിപ്പുകളും ധരിച്ച ഒരു കൂട്ടം പെൺകുട്ടികൾ ഒരുമിച്ച് നൃത്തം ചെയ്യുന്നു.",
+   "de": "Eine Gruppe von Mädchen in passenden braunen Kleidern und Sandalen tanzt im Einklang.",
+   "es": "Un grupo de niñas con vestidos marrones a juego y sandalias bailan al unísono."
+  },
+  {
+   "en": "A group of people are sitting outside a cafe drinking coffee and juice",
+   "hi": "लोगों का एक समूह एक कैफे के बाहर बैठकर कॉफी और जूस पी रहा है।",
+   "ar": "مجموعة من الناس يجلسون خارج مقهى يشربون القهوة والعصير.",
+   "ml": "ഒരു കൂട്ടം ആളുകൾ കഫേയ്ക്ക് പുറത്തിരുന്ന് കാപ്പിയും ജ്യൂസും കുടിക്കുന്നു.",
+   "de": "Eine Gruppe von Menschen sitzt vor einem Café und trinkt Kaffee und Saft.",
+   "es": "Un grupo de personas está sentado fuera de una cafetería tomando café y jugo."
+  },
+  {
+   "en": "Group of Asian boys wait for meat to cook over barbecue",
+   "hi": "एशियाई लड़कों का समूह बारबेक्यू पर मांस के पकने का इंतज़ार कर रहा है।",
+   "ar": "مجموعة من الفتيان الآسيويين ينتظرون طهي اللحم على الشواء.",
+   "ml": "ഏഷ്യൻ ആൺകുട്ടികളുടെ ഒരു സംഘം ബാർബിക്യുവിൽ ഇറച്ചി വെന്തുവരാൻ കാത്തിരിക്കുന്നു.",
+   "de": "Eine Gruppe asiatischer Jungen wartet darauf, dass das Fleisch auf dem Grill gart.",
+   "es": "Un grupo de chicos asiáticos espera a que la carne se cocine a la barbacoa."
+  },
+  {
+   "en": "A person crosses the street and avoids the spill of paint",
+   "hi": "एक व्यक्ति सड़क पार करता है और बिखरे हुए पेंट से बचता है।",
+   "ar": "شخص يعبر الشارع ويتجنب انسكاب الطلاء.",
+   "ml": "ഒരാൾ പെയിന്റ് ചിതറിക്കിടക്കുന്നത് ഒഴിവാക്കി റോഡ് മുറിച്ചുകടക്കുന്നു.",
+   "de": "Eine Person überquert die Straße und weicht der verschütteten Farbe aus.",
+   "es": "Una persona cruza la calle y evita el derrame de pintura."
+  },
+  {
+   "en": "A shirtless man wearing a black hat and a scarf works on an anvil",
+   "hi": "बिना शर्ट के, काली टोपी और स्कार्फ पहने एक आदमी निहाई पर काम कर रहा है।",
+   "ar": "رجل بلا قميص يرتدي قبعة سوداء وشالاً يعمل على السندان.",
+   "ml": "കറുത്ത തൊപ്പിയും സ്കാർഫും ധരിച്ച ഷർട്ട് ഇടാത്ത ഒരാൾ ഒരു അഡ്രക്കല്ലിൽ ജോലി ചെയ്യുന്നു.",
+   "de": "Ein Mann ohne Oberteil mit schwarzem Hut und Schal arbeitet an einem Amboss.",
+   "es": "Un hombre sin camisa que lleva un sombrero negro y una bufanda trabaja sobre un yunque."
+  },
+  {
+   "en": "A man is jumping off of the upper level kitchen in his home",
+   "hi": "एक आदमी अपने घर में ऊपरी मंजिल की रसोई से कूद रहा है।",
+   "ar": "رجل يقفز من المطبخ في الطابق العلوي من منزله.",
+   "ml": "ഒരാൾ തന്റെ വീടിന്റെ മുകളിലത്തെ നിലയിലെ അടുക്കളയിൽ നിന്ന് ചാടുന്നു.",
+   "de": "Ein Mann springt von der Küche der oberen Etage seines Hauses herunter.",
+   "es": "Un hombre está saltando desde la cocina del nivel superior de su casa."
+  },
+  {
+   "en": "Boy and his family celebrating his birthday with a brightly lit cake",
+   "hi": "लड़का और उसका परिवार रोशनी से जगमगाते केक के साथ उसका जन्मदिन मना रहे हैं।",
+   "ar": "صبي وعائلته يحتفلون بعيد ميلاده بوجود كعكة مضاءة ببراعة.",
+   "ml": "ആൺകുട്ടിയും കുടുംബവും തിളങ്ങുന്ന കേക്കുമായി അവന്റെ ജന്മദിനം ആഘോഷിക്കുന്നു.",
+   "de": "Ein Junge und seine Familie feiern seinen Geburtstag mit einer hell erleuchteten Torte.",
+   "es": "Un niño y su familia celebran su cumpleaños con una tarta brillantemente iluminada."
+  },
+  {
+   "en": "Children at an aquarium looking at different kinds of fish",
+   "hi": "एक्वेरियम में बच्चे विभिन्न प्रकार की मछलियों को देख रहे हैं।",
+   "ar": "أطفال في حوض أسماك ينظرون إلى أنواع مختلفة من الأسماك.",
+   "ml": "അക്വേറിയത്തിലെ കുട്ടികൾ വിവിധ തരം മത്സ്യങ്ങളെ നോക്കുന്നു.",
+   "de": "Kinder in einem Aquarium betrachten verschiedene Fischarten.",
+   "es": "Niños en un acuario mirando diferentes tipos de peces."
+  },
+  {
+   "en": "People waiting in line for their favorite beverage",
+   "hi": "लोग अपने पसंदीदा पेय के लिए लाइन में इंतजार कर रहे हैं।",
+   "ar": "ناس ينتظرون في الصف للحصول على مشروبهم المفضل.",
+   "ml": "ആളുകൾ തങ്ങളുടെ പ്രിയപ്പെട്ട പാനീയത്തിനായി വരിയിൽ കാത്തുനിൽക്കുന്നു.",
+   "de": "Menschen warten in einer Schlange auf ihr Lieblingsgetränk.",
+   "es": "Personas esperando en fila para su bebida favorita."
+  },
+  {
+   "en": "Children sit and watch the fish moving in the pond",
+   "hi": "बच्चे बैठकर तालाब में मछलियों को तैरते हुए देख रहे हैं।",
+   "ar": "يجلس الأطفال ويشاهدون الأسماك تتحرك في البركة.",
+   "ml": "കുട്ടികൾ ഇരുന്ന് കുളത്തിലെ മീനുകൾ നീന്തുന്നത് കാണുന്നു.",
+   "de": "Kinder sitzen und beobachten die Fische, die sich im Teich bewegen.",
+   "es": "Los niños se sientan y observan cómo se mueven los peces en el estanque."
+  },
+  {
+   "en": "Little boy sitting in water with a fountain coming up through his lap",
+   "hi": "छोटा लड़का पानी में बैठा है और उसकी गोद से एक फव्वारा निकल रहा है।",
+   "ar": "صبي صغير يجلس في الماء ونافورة تخرج من بين فخذيه.",
+   "ml": "ചെറിയ ആൺകുട്ടി വെള്ളത്തിൽ ഇരിക്കുന്നു, അവന്റെ മടിയിലൂടെ ഒരു നീരുറവ പൊന്തിവരുന്നു.",
+   "de": "Ein kleiner Junge sitzt im Wasser, während ein Springbrunnen aus seinem Schoß aufsteigt.",
+   "es": "Un niño pequeño sentado en el agua con una fuente saliendo de su regazo."
+  },
+  {
+   "en": "An employee is handing a woman a bag while she is browsing through fish on ice at a street market",
+   "hi": "स्ट्रीट मार्केट में बर्फ पर रखी मछलियाँ देखते समय एक कर्मचारी एक महिला को एक बैग थमा रहा है।",
+   "ar": "يسلّم موظف حقيبة لامرأة بينما تتصفح الأسماك الموضوعة على الثلج في سوق الشارع.",
+   "ml": "സ്ട്രീറ്റ് മാർക്കറ്റിൽ മഞ്ഞിൽ വെച്ചിരിക്കുന്ന മീനുകൾ നോക്കുന്നതിനിടെ ഒരു ജീവനക്കാരൻ ഒരു സ്ത്രീക്ക് ഒരു ബാഗ് നൽകുന്നു.",
+   "de": "Ein Mitarbeiter überreicht einer Frau eine Tüte, während sie auf einem Straßenmarkt Fische auf Eis betrachtet.",
+   "es": "Un empleado le entrega una bolsa a una mujer mientras ella examina el pescado sobre hielo en un mercado callejero."
+  },
+  {
+   "en": "Two and four footed neighbors stop by to visit",
+   "hi": "दो और चार पैरों वाले पड़ोसी मिलने आते हैं।",
+   "ar": "جيران من ذوي القدمين والأربع أقدام يتوقفون للزيارة.",
+   "ml": "രണ്ടും നാലും കാലുകളുള്ള അയൽക്കാർ സന്ദർശിക്കാൻ എത്തുന്നു.",
+   "de": "Zwei- und vierbeinige Nachbarn schauen auf einen Besuch vorbei.",
+   "es": "Vecinos de dos y cuatro patas se pasan a visitar."
+  },
+  {
+   "en": "Ten people smile while sitting at the sides of a long table in a restaurant",
+   "hi": "एक रेस्तरां में एक लंबी मेज के दोनों ओर बैठे दस लोग मुस्कुरा रहे हैं।",
+   "ar": "عشرة أشخاص يبتسمون أثناء جلوسهم على جانبي طاولة طويلة في مطعم.",
+   "ml": "ഒരു റസ്റ്റോറന്റിലെ നീളമുള്ള മേശയുടെ വശങ്ങളിൽ ഇരിക്കുന്ന പത്തുപേർ പുഞ്ചിരിക്കുന്നു.",
+   "de": "Zehn Personen lächeln, während sie an den Seiten eines langen Tisches in einem Restaurant sitzen.",
+   "es": "Diez personas sonríen mientras están sentadas a los lados de una mesa larga en un restaurante."
+  },
+  {
+   "en": "A crowd of people look at something out of frame  one man takes a picture",
+   "hi": "लोगों की भीड़ फ्रेम से बाहर किसी चीज़ को देख रही है, एक आदमी तस्वीर ले रहा है।",
+   "ar": "حشد من الناس ينظرون إلى شيء خارج الإطار، ورجل واحد يلتقط صورة.",
+   "ml": "ആളുകളുടെ ഒരു കൂട്ടം ഫ്രെയിമിന് പുറത്തുള്ള എന്തോ നോക്കുന്നു, ഒരാൾ ചിത്രമെടുക്കുന്നു.",
+   "de": "Eine Menschenmenge blickt auf etwas außerhalb des Bildes, ein Mann macht ein Foto.",
+   "es": "Una multitud de personas mira algo fuera de encuadre, un hombre toma una foto."
+  },
+  {
+   "en": "A middle-aged man sitting in a chair holding a drink  sleeping",
+   "hi": "कुर्सी पर बैठा एक अधेड़ उम्र का आदमी हाथ में पेय लिए सो रहा है।",
+   "ar": "رجل متوسط العمر يجلس على كرسي يحمل مشروبًا وينام.",
+   "ml": "ഒരു മധ്യവയസ്‌കൻ കസേരയിലിരുന്ന് പാനീയവും പിടിച്ച് ഉറങ്ങുന്നു.",
+   "de": "Ein Mann mittleren Alters sitzt in einem Stuhl, hält ein Getränk und schläft.",
+   "es": "Un hombre de mediana edad sentado en una silla sujetando una bebida, durmiendo."
+  },
+  {
+   "en": "A smiling woman in a purple shirt and white apron wiping her hands on a napkin",
+   "hi": "बैंगनी रंग की शर्ट और सफेद एप्रन पहने एक मुस्कुराती हुई महिला अपने हाथों को नैपकिन से पोंछ रही है।",
+   "ar": "امرأة مبتسمة ترتدي قميصًا أرجوانيًا ومئزرًا أبيض تمسح يديها بمنديل.",
+   "ml": "പർപ്പിൾ ഷർട്ടും വെള്ള ഏപ്രണും ധരിച്ച ഒരു പുഞ്ചിരിക്കുന്ന സ്ത്രീ റൂമാൽ കൊണ്ട് കൈ തുടക്കുന്നു.",
+   "de": "Eine lächelnde Frau in einem violetten Hemd und einer weißen Schürze wischt sich die Hände an einer Servierte ab.",
+   "es": "Una mujer sonriente con una camisa morada y un delantal blanco se limpia las manos con una servilleta."
+  }
+ ]
+}

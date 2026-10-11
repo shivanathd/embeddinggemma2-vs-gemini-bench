@@ -1,0 +1,35 @@
+run start Sun Oct 11 15:21:34 IST 2026 load { 153.06 66.50 72.51 }
+[transformers] Asked to sample uniformly with `fps`, but the video metadata has no `fps` or `duration`. Keeping every frame and applying only the `max_frames` budget. Pass a `VideoMetadata` object with a valid `fps` and `duration` to sample at a target frame rate.
+  local video_clips: 60 in 88.0s (0.7/s)
+  local video_q: 18 in 3.0s (6.0/s)
+loc {'R@1': 0.7222222222222222, 'R@3': 0.8888888888888888}
+  cloud video_clips: 60 in 5.1s (11.9/s)
+  cloud video_q: 18 in 0.7s (24.8/s)
+cloud {'R@1': 0.6111111111111112, 'R@3': 0.8888888888888888}
+== video done in 97.5s
+loc {'photo_only': 0.92, 'caption_only': 0.768, 'photo_plus_caption': 0.88}
+cloud {'photo_only': 0.935, 'caption_only': 0.742, 'photo_plus_caption': 0.899}
+== mixed_input done in 490.7s
+  local fl_en_us_audio: 150 in 80.0s (1.9/s)
+  local fl_en_us_text: 150 in 3.7s (41.1/s)
+  local fl_eng_text: 150 in 4.7s (31.7/s)
+  cloud fl_en_us_audio: 150 in 26.9s (5.6/s)
+  cloud fl_en_us_text: 150 in 2.3s (64.8/s)
+  cloud fl_eng_text: 150 in 2.2s (69.1/s)
+English {'loc': {'speech_to_own_transcript_R@1': 1.0, 'speech_to_english_R@1': 1.0}, 'cloud': {'speech_to_own_transcript_R@1': 0.9866666666666667, 'speech_to_english_R@1': 0.9866666666666667}}
+  local fl_hi_in_audio: 150 in 87.4s (1.7/s)
+  local fl_hi_in_text: 150 in 4.5s (33.2/s)
+  cloud fl_hi_in_audio: 150 in 13.6s (11.0/s)
+  cloud fl_hi_in_text: 150 in 22.6s (6.6/s)
+Hindi {'loc': {'speech_to_own_transcript_R@1': 0.98, 'speech_to_english_R@1': 0.96}, 'cloud': {'speech_to_own_transcript_R@1': 0.9933333333333333, 'speech_to_english_R@1': 0.94}}
+  local fl_ar_eg_audio: 150 in 37.4s (4.0/s)
+  local fl_ar_eg_text: 150 in 2.6s (58.0/s)
+  cloud fl_ar_eg_audio: 150 in 9.2s (16.3/s)
+  cloud fl_ar_eg_text: 150 in 2.5s (60.9/s)
+Arabic {'loc': {'speech_to_own_transcript_R@1': 0.9866666666666667, 'speech_to_english_R@1': 0.96}, 'cloud': {'speech_to_own_transcript_R@1': 0.9866666666666667, 'speech_to_english_R@1': 0.9533333333333334}}
+  local fl_ml_in_audio: 150 in 51.1s (2.9/s)
+  local fl_ml_in_text: 150 in 3.0s (49.7/s)
+  cloud fl_ml_in_audio: 150 in 12.9s (11.6/s)
+  cloud fl_ml_in_text: 150 in 3.3s (45.9/s)
+Malayalam {'loc': {'speech_to_own_transcript_R@1': 1.0, 'speech_to_english_R@1': 0.9333333333333333}, 'cloud': {'speech_to_own_transcript_R@1': 1.0, 'speech_to_english_R@1': 0.9266666666666666}}
+== fleurs done in 2221.1s

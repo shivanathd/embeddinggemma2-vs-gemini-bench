@@ -1,0 +1,642 @@
+<title>EmbeddingGemma 2 vs Gemini Embedding 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one lab-report column (max 920px). Verdict first, then evidence by department, media deep dive, speed/cost, decision, "do we need it", method, logs */
+:root {
+  --ink: #16202b; --muted: #5b6878; --paper: #f5f7f9; --panel: #ffffff; --rule: #d9e0e8; --soft: #eef2f6;
+  --local: #1d7a57; --cloud: #3563c9; --warn: #a8551a;
+  --mark-loc: #1d7a57; --mark-cld: #3563c9; --mark-tie: #8a95a3; --mark-kw: #16202b;
+  --f-display: "Bricolage Grotesque", "Hanken Grotesk", system-ui, sans-serif;
+  --f-body: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e4eaf1; --muted: #98a6b6; --paper: #0f151c; --panel: #161e27; --rule: #29343f; --soft: #1b2530;
+    --local: #4cc496; --cloud: #8aabf2; --warn: #e3975e;
+    --mark-loc: #36a079; --mark-cld: #628ae0; --mark-tie: #7d8896; --mark-kw: #e4eaf1; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e4eaf1; --muted: #98a6b6; --paper: #0f151c; --panel: #161e27; --rule: #29343f; --soft: #1b2530;
+  --local: #4cc496; --cloud: #8aabf2; --warn: #e3975e;
+  --mark-loc: #36a079; --mark-cld: #628ae0; --mark-tie: #7d8896; --mark-kw: #e4eaf1; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--f-body); padding: 0 20px; }
+main { max-width: 920px; margin: 0 auto; padding-block: 48px 80px; display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.08; }
+h2 { font-size: 26px; line-height: 1.2; }
+h3 { font-size: 18px; line-height: 1.3; font-family: var(--f-body); font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+section { display: grid; gap: 18px; }
+.sub { display: grid; gap: 12px; }
+.eyebrow { font: 600 12px/1 var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.lede { font-size: 18.5px; color: var(--muted); }
+.k-local { color: var(--local); font-weight: 600; }
+.k-cloud { color: var(--cloud); font-weight: 600; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 13px/1.4 var(--f-mono); color: var(--muted); }
+nav.toc { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+nav.toc a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--ink); border-color: var(--ink); }
+.tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.tile { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: grid; gap: 2px; }
+.tile .n { font: 700 30px/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 13.5px; color: var(--muted); }
+.tile.local { border-top: 3px solid var(--mark-loc); } .tile.cloud { border-top: 3px solid var(--mark-cld); } .tile.tie { border-top: 3px solid var(--mark-tie); }
+.answer { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--ink); border-radius: 6px; padding: 18px 20px; display: grid; gap: 10px; }
+.answer ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font: 600 11.5px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+td.n, th.n { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.best { font-weight: 600; }
+.chip { display: inline-block; font: 600 11.5px/1 var(--f-mono); padding: 4px 7px; border-radius: 99px; white-space: nowrap; border: 1px solid currentColor; }
+.chip.local { color: var(--local); } .chip.cloud { color: var(--cloud); } .chip.tie { color: var(--muted); } .chip.neither { color: var(--warn); }
+.note { font-size: 14px; color: var(--muted); }
+.callout { border-left: 3px solid var(--warn); padding: 4px 0 4px 16px; display: grid; gap: 6px; }
+.callout strong { color: var(--warn); }
+figure { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px; display: grid; gap: 10px; }
+figcaption { font-size: 14px; color: var(--muted); }
+.chart { overflow-x: auto; }
+.chart svg { width: 100%; min-width: 620px; height: auto; display: block; }
+svg text { font-family: var(--f-mono); font-size: 11.5px; fill: var(--muted); }
+svg .rowlab, svg .endlab, svg .val { fill: var(--ink); font-family: var(--f-body); font-size: 12.5px; }
+svg .unit { fill: var(--muted); font-family: var(--f-mono); font-size: 10.5px; }
+svg .lab-l { fill: var(--local); font-weight: 600; } svg .lab-c { fill: var(--cloud); font-weight: 600; }
+svg .grid { stroke: var(--rule); stroke-width: 1; }
+svg .axis0 { stroke: var(--muted); stroke-width: 1.5; }
+svg .m-loc { fill: var(--mark-loc); stroke: var(--panel); stroke-width: 2; }
+svg .m-cld { fill: var(--mark-cld); stroke: var(--panel); stroke-width: 2; }
+svg .m-tie { fill: var(--mark-tie); stroke: var(--panel); stroke-width: 2; }
+svg .m-kw { fill: var(--mark-kw); opacity: 0.6; }
+svg .ci { fill: none; stroke-width: 3; stroke-linecap: round; opacity: 0.45; }
+svg .ci.m-loc { stroke: var(--mark-loc); } svg .ci.m-cld { stroke: var(--mark-cld); } svg .ci.m-tie { stroke: var(--mark-tie); }
+svg .bar-link { stroke: var(--rule); stroke-width: 3; }
+svg .ln { fill: none; stroke-width: 2; }
+svg .ln.m-loc { stroke: var(--mark-loc); } svg .ln.m-cld { stroke: var(--mark-cld); }
+svg .ln.dash { stroke-dasharray: 6 4; }
+svg [data-tip] { cursor: default; }
+svg [data-tip]:hover, svg [data-tip]:focus { stroke: var(--ink); stroke-width: 2; outline: none; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.legend i.l { background: var(--mark-loc); } .legend i.c { background: var(--mark-cld); } .legend i.t { background: var(--mark-tie); }
+.legend i.k { width: 3px; height: 13px; border-radius: 1px; background: var(--mark-kw); opacity: .6; }
+.legend i.d { width: 18px; height: 0; border-radius: 0; border-top: 2px dashed var(--muted); }
+#tip { position: fixed; pointer-events: none; z-index: 10; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; box-shadow: 0 4px 16px rgb(0 0 0 / .12); font-size: 13px; max-width: 320px; display: grid; gap: 2px; }
+#tip .v { font-weight: 600; font-family: var(--f-mono); font-size: 12.5px; }
+#tip .k { color: var(--muted); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+.dept { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.dept header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.dept p { font-size: 14.5px; color: var(--muted); }
+.theme-img { width: 100%; height: auto; border-radius: 4px; display: block; }
+.theme-img.dark { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-img.light { display: none; } :root:not([data-theme="light"]) .theme-img.dark { display: block; } }
+:root[data-theme="dark"] .theme-img.light { display: none; } :root[data-theme="dark"] .theme-img.dark { display: block; }
+pre { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; overflow-x: auto; font: 400 12.5px/1.6 var(--f-mono); }
+pre.log { max-height: 420px; overflow: auto; white-space: pre; }
+code { font-family: var(--f-mono); font-size: 0.9em; }
+details { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; }
+details > summary { cursor: pointer; padding: 12px 16px; font-weight: 600; font-size: 14.5px; }
+details > summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+details > div { padding: 0 16px 16px; display: grid; gap: 10px; }
+details pre { border: 0; padding: 0; background: transparent; }
+.theme-img-fixed { width: 100%; height: auto; border-radius: 4px; display: block; }
+button.copy { font: 600 12.5px/1 var(--f-body); color: var(--ink); background: var(--soft); border: 1px solid var(--rule); border-radius: 5px; padding: 7px 12px; cursor: pointer; }
+button.copy:hover { border-color: var(--muted); }
+button.copy:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+pre.log code, pre.log { tab-size: 4; }
+ol.steps { margin: 0; padding-left: 22px; display: grid; gap: 6px; max-width: 70ch; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<main>
+<header style="display:grid;gap:16px">
+  <div class="eyebrow">Embedding benchmark · {{ sys.cpu }}, {{ sys.mem }} · 11 Oct 2026</div>
+  <h1>EmbeddingGemma 2 vs Gemini Embedding 2</h1>
+  <p class="lede">Can a free model running on this Mac replace Google's cloud embedding API? We ran {{ ROWS|length }} tests across eight departments, from code search to Malayalam voice queries, with both models on identical inputs. <span class="k-local">EmbeddingGemma 2</span> is the open model running locally. <span class="k-cloud">Gemini Embedding 2</span> is the paid API.</p>
+  <div class="meta"><span>google/embeddinggemma-2 · 740M params · 768d</span><span>gemini-embedding-2 · 3072d</span><span>~80,000 texts, 1,000 photos, 60 video clips, 43 PDF pages, 1,323 audio clips per model</span><span>Cloud spend ~$5 (est.)</span><span><a href="https://github.com/shivanathd/embeddinggemma2-vs-gemini-bench">Code and data on GitHub</a></span></div>
+  <nav class="toc" aria-label="Sections">
+    <a href="#verdict">Verdict</a><a href="#bench">Test bench</a><a href="#score">Scoreboard</a><a href="#depts">By department</a><a href="#media">Media</a><a href="#dims">Vector size</a><a href="#speed">Speed and cost</a><a href="#decide">What to use when</a><a href="#extended">Extended tests</a><a href="#need">Do we need it?</a><a href="#privacy">Privacy</a><a href="#limits">Not covered</a><a href="#sources">Sources</a><a href="#method">Method</a><a href="#repro">Reproduce</a><a href="#mod">Live mod</a><a href="#code">Source code</a><a href="#logs">Logs</a>
+  </nav>
+</header>
+
+<section id="verdict">
+  <h2>Verdict</h2>
+  <div class="tally">
+    <div class="tile local"><span class="n">{{ wins.local }}</span><span class="l">tests the local model wins</span></div>
+    <div class="tile cloud"><span class="n">{{ wins.cloud }}</span><span class="l">tests the cloud model wins</span></div>
+    <div class="tile tie"><span class="n">{{ wins.tie }}</span><span class="l">ties (gap under 3 points)</span></div>
+    <div class="tile tie"><span class="n">{{ wins.neither }}</span><span class="l">neither model is usable</span></div>
+  </div>
+  <div class="answer">
+    <p><strong>For English text, code, photos and PDFs, you don't need the cloud.</strong> The local model wins or ties {{ wins.local + wins.tie }} of {{ ROWS|length }} tests, answers a query in {{ "%.0f"|format(L.text_p50_loc) }} ms against {{ "%.0f"|format(L.text_p50_cloud) }} ms, costs nothing per document and keeps every file on the machine.</p>
+    <p><strong>Pay for Gemini Embedding 2 when any of these apply:</strong></p>
+    <ul>
+      <li>You search in Urdu, Arabic, Tamil or Malayalam (local is 9 to 18 points behind on those languages).</li>
+      <li>You match questions to written answers in finance or developer support (finance: {{ f3(T.fiqa.loc_768.ndcg10) }} local vs {{ f3(T.fiqa.cloud_768.ndcg10) }} cloud).</li>
+      <li>You search sound effects, or let people search photos by speaking Hindi or Arabic.</li>
+      <li>One index mixes photos and text, and you add the per-type calibration described below.</li>
+    </ul>
+    <p><strong>If you choose the cloud for text only, test Gemini Embedding 1 as well.</strong> The older model beat Gemini Embedding 2 on finance, legal and languages in our runs.</p>
+    <p><strong>Whatever you pick, chunk long documents.</strong> A relevant passage in the middle of a 2,000-token document drops search quality by more than half for both models.</p>
+    <p><strong>Skip embeddings entirely</strong> for judging resume fit (both models score close to a coin flip), and consider plain keyword search for near-duplicate detection, where it scores {{ f3(B.quora) }}.</p>
+  </div>
+</section>
+
+<section id="bench">
+  <h2>Test bench</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>EmbeddingGemma 2</th><th>Gemini Embedding 2</th></tr></thead>
+    <tbody>
+      <tr><td>Where it runs</td><td>On the device: laptop, server or phone</td><td>Google's API (data leaves the machine)</td></tr>
+      <tr><td>Licence</td><td>Apache 2.0, open weights</td><td>Proprietary, pay per use</td></tr>
+      <tr><td>Size</td><td>740M total: 270M text, 170M vision, 300M audio. Encoders load separately</td><td>Not disclosed</td></tr>
+      <tr><td>Vector size</td><td>768, can be cut to 512, 256 or 128</td><td>3072, can be cut down to 128</td></tr>
+      <tr><td>Input limit</td><td>8,192 tokens shared across all inputs</td><td>8,192 tokens</td></tr>
+      <tr><td>Inputs</td><td>Text, code, images, video, audio, mixed in one input</td><td>Text, images, video, audio, PDF</td></tr>
+      <tr><td>How you set the task</td><td>Text prefix, e.g. <code>task: search result | query:</code></td><td><code>task_type</code> parameter</td></tr>
+      <tr><td>Cost</td><td>Free. Q8_0 model file is 310 MB</td><td>$0.20 per 1M text tokens; $0.45 images, $6.50 audio, $12 video per 1M tokens (list price)</td></tr>
+      <tr><td>Gotchas</td><td>Never run in float16 (silent NaNs); use bfloat16 or float32</td><td>A plain list of strings returns one combined vector; wrap each item in its own <code>Content</code>. Max 100 per request</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cols">
+    <div class="dept"><h3>Hardware</h3><p>{{ sys.cpu }} · {{ sys.mem }} unified memory · {{ sys.os }}. Shared with normal work during the run: load average ranged from 10 to over 200 because of a busy browser and endpoint security agents, so local speeds are conservative.</p></div>
+    <div class="dept"><h3>Software</h3><p>llama.cpp b11541 (Metal, Q8_0 GGUF) for local text · PyTorch {{ sys.torch }} on MPS in bfloat16 for images and audio · sentence-transformers {{ sys.st }} · google-genai {{ sys.genai }} · Python {{ sys.py }}.</p></div>
+  </div>
+  <details><summary>Published scores from the vendors (not re-measured here)</summary><div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Benchmark</th><th class="n">EmbeddingGemma 2</th><th class="n">Gemini Embedding 2</th></tr></thead>
+      <tbody>
+        <tr><td>MTEB multilingual v2</td><td class="n">61.36</td><td class="n">69.9*</td></tr>
+        <tr><td>MTEB English v2</td><td class="n">68.46</td><td class="n">–</td></tr>
+        <tr><td>MTEB code v1</td><td class="n">78.68</td><td class="n">84.0*</td></tr>
+        <tr><td>MIEB lite (images)</td><td class="n">64.64</td><td class="n">–</td></tr>
+        <tr><td>MMEB v2 overall</td><td class="n">59.01</td><td class="n">–</td></tr>
+        <tr><td>MSEB retrieval (sound)</td><td class="n">69.54</td><td class="n">–</td></tr>
+        <tr><td>MAEB (audio)</td><td class="n">49.39</td><td class="n">–</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">EmbeddingGemma 2 figures are from its model card. *Gemini figures are as reported in a preprint summary; we could not verify the exact task versions, so don't compare them directly with the left column.</p>
+  </div></details>
+</section>
+
+<section id="pipeline">
+  <h2>How the benchmark runs</h2>
+  <figure>
+    <img class="theme-img light" src="{{ img['pipeline-light'] }}" alt="Pipeline: text and media test sets go through prompts and sampling, are embedded by both models, cached, then scored with paired bootstrap and written to this report.">
+    <img class="theme-img dark" src="{{ img['pipeline-dark'] }}" alt="">
+    <figcaption>Both models get identical inputs and each gets its own recommended task prompt. Vectors are cached, scored on the same queries, and compared with 2,000 paired bootstrap resamples. Drawn with Archify.</figcaption>
+  </figure>
+</section>
+
+<section id="score">
+  <h2>Scoreboard</h2>
+  <p>Each row is one test. The dot shows how much higher the cloud model scored than the local one; the bar is the 95% confidence interval. Rows without a bar had too few queries for a reliable interval. Hover or tab to a dot for the exact numbers.</p>
+  <figure>
+    <div class="legend"><span><i class="l"></i>local clearly better</span><span><i class="c"></i>cloud clearly better</span><span><i class="t"></i>tie in practice or neither works</span></div>
+    <div class="chart">{{ forest }}</div>
+    <figcaption>Scores are on a 0 to 1 scale for every metric (nDCG@10, accuracy, R@1, ROC-AUC, Spearman), so +0.10 means ten points.</figcaption>
+  </figure>
+  <figure>
+    <div class="legend"><span><i class="l"></i>EmbeddingGemma 2</span><span><i class="c"></i>Gemini Embedding 2</span><span><i class="k"></i>keyword search (BM25)</span></div>
+    <div class="chart">{{ dumbbell }}</div>
+    <figcaption>Absolute scores. The dark tick is plain keyword search on the same queries, shown for the seven document-search tests.</figcaption>
+  </figure>
+  <details><summary>Scoreboard as a table</summary><div><div class="table-wrap"><table>
+    <thead><tr><th>Test</th><th>Department</th><th>Metric</th><th class="n">Local</th><th class="n">Cloud</th><th class="n">Keyword</th><th class="n">Cloud − local (95% CI)</th><th>Sample</th><th>Verdict</th></tr></thead>
+    <tbody>
+    {% for r in ROWS %}<tr><td>{{ e(r.label) }}</td><td>{{ r.dept }}</td><td>{{ r.metric }}</td><td class="n {{ 'best' if r.loc > r.cld }}">{{ f3(r.loc) }}</td><td class="n {{ 'best' if r.cld > r.loc }}">{{ f3(r.cld) }}</td><td class="n">{{ f3(r.bm) if r.bm is not none else '–' }}</td><td class="n">{{ "%+.3f"|format(r.d) }}{% if r.lo is not none %} ({{ "%+.3f"|format(r.lo) }} to {{ "%+.3f"|format(r.hi) }}){% endif %}</td><td>{{ r.n }}</td><td><span class="chip {{ r.verdict }}">{{ {'local':'local','cloud':'cloud','tie':'tie','neither':'neither'}[r.verdict] }}</span></td></tr>
+    {% endfor %}
+    </tbody>
+  </table></div></div></details>
+</section>
+
+<section id="depts">
+  <h2>By department</h2>
+  <div class="cols">
+    <div class="dept"><header><h3>Engineering</h3><span class="chip tie">mixed</span></header>
+      <p>Code search from a docstring is a near-tie ({{ f3(T.codesearch.loc_768.ndcg10) }} vs {{ f3(T.codesearch.cloud_768.ndcg10) }}), and both crush keyword search ({{ f3(B.codesearch) }}). For matching a developer's question to a written answer, the cloud is clearly better ({{ f3(T.stackoverflow.loc_768.ndcg10) }} vs {{ f3(T.stackoverflow.cloud_768.ndcg10) }}).</p></div>
+    <div class="dept"><header><h3>Support and sales</h3><span class="chip tie">tie</span></header>
+      <p>Routing tickets to 77 intents: {{ pct(T.banking77.loc_768.accuracy) }} local, {{ pct(T.banking77.cloud_768.accuracy) }} cloud, with 16 examples per intent. Duplicate questions: both 0.99. Similarity scoring favours local ({{ f3(T.stsb.loc_768.spearman) }} vs {{ f3(T.stsb.cloud_768.spearman) }} Spearman).</p></div>
+    <div class="dept"><header><h3>Finance</h3><span class="chip cloud">cloud</span></header>
+      <p>The biggest gap in the study. Matching investor questions to answers: {{ f3(T.fiqa.loc_768.ndcg10) }} local vs {{ f3(T.fiqa.cloud_768.ndcg10) }} cloud nDCG@10, with keyword search at {{ f3(B.fiqa) }}. Recall@10 is {{ pct(T.fiqa.loc_768.recall10) }} vs {{ pct(T.fiqa.cloud_768.recall10) }}.</p></div>
+    <div class="dept"><header><h3>Legal</h3><span class="chip local">local</span></header>
+      <p>Finding the contract clause that answers a consumer question: local {{ f3(T.legal.loc_768.ndcg10) }}, cloud {{ f3(T.legal.cloud_768.ndcg10) }}, keyword {{ f3(B.legal) }}. The local model also holds up far better when vectors are shrunk to 128 ({{ f3(T.legal.loc_128.ndcg10) }} vs {{ f3(T.legal.cloud_128.ndcg10) }}).</p></div>
+    <div class="dept"><header><h3>HR</h3><span class="chip neither">neither</span></header>
+      <p>Scoring whether a resume fits a job description: ROC-AUC {{ f3(T.resume.loc_768.auc) }} local, {{ f3(T.resume.cloud_768.auc) }} cloud, where 0.5 is a coin flip. Similarity between a resume and a job ad does not capture fit. Use an LLM with a scoring rubric instead.</p></div>
+    <div class="dept"><header><h3>Science and health</h3><span class="chip cloud">cloud</span></header>
+      <p>Claims to evidence (SciFact): {{ f3(T.scifact.loc_768.ndcg10) }} vs {{ f3(T.scifact.cloud_768.ndcg10) }}. Lay health questions to medical research (NFCorpus): {{ f3(T.nfcorpus.loc_768.ndcg10) }} vs {{ f3(T.nfcorpus.cloud_768.ndcg10) }}. The cloud is 4 to 7 points ahead on both.</p></div>
+    <div class="dept"><header><h3>Languages</h3><span class="chip cloud">cloud</span></header>
+      <p>Matching a sentence to its English translation among 1,000 candidates. Hindi and French are close; Urdu ({{ pct(T.tatoeba.langs.urd.loc) }} vs {{ pct(T.tatoeba.langs.urd.cloud) }}), Malayalam, Arabic and Tamil favour the cloud by 9 to 18 points.</p></div>
+    <div class="dept"><header><h3>Field and media</h3><span class="chip tie">mixed</span></header>
+      <p>Photo search and voice notes are close to a tie. PDF pages favour local. Sound effects and non-English spoken queries favour the cloud. Details below.</p></div>
+  </div>
+  <figure>
+    <div class="legend"><span><i class="l"></i>EmbeddingGemma 2</span><span><i class="c"></i>Gemini Embedding 2</span></div>
+    <div class="chart">{{ tat }}</div>
+    <figcaption>Translation matching accuracy by language (Tatoeba, 1,000 sentence pairs each).</figcaption>
+  </figure>
+</section>
+
+<section id="media">
+  <h2>Photos, voice, sounds and PDFs</h2>
+  <div class="sub">
+    <h3>Photo library search</h3>
+    <p>1,000 Flickr30k photos, each searched with its five human-written captions (5,000 queries). The local model finds the right photo first {{ pct(M.photos.loc_t2i_768['R@1']) }} of the time and in the top five {{ pct(M.photos.loc_t2i_768['R@5']) }}; the cloud model scores {{ pct(M.photos.cloud_t2i_768['R@1']) }} and {{ pct(M.photos.cloud_t2i_768['R@5']) }}. The 2-point gap is statistically real but small in practice.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Test</th><th class="n">Local 768d</th><th class="n">Local 256d</th><th class="n">Local 128d</th><th class="n">Cloud 768d</th><th class="n">Cloud 256d</th><th class="n">Cloud 128d</th></tr></thead>
+      <tbody>
+        <tr><td>Text → photo, R@1</td>{% for d in (768,256,128) %}<td class="n">{{ pct(M.photos['loc_t2i_%d'|format(d)]['R@1']) }}</td>{% endfor %}{% for d in (768,256,128) %}<td class="n">{{ pct(M.photos['cloud_t2i_%d'|format(d)]['R@1']) }}</td>{% endfor %}</tr>
+        <tr><td>Text → photo, R@5</td>{% for d in (768,256,128) %}<td class="n">{{ pct(M.photos['loc_t2i_%d'|format(d)]['R@5']) }}</td>{% endfor %}{% for d in (768,256,128) %}<td class="n">{{ pct(M.photos['cloud_t2i_%d'|format(d)]['R@5']) }}</td>{% endfor %}</tr>
+        <tr><td>Photo → caption, R@1</td><td class="n">{{ pct(M.photos.loc_i2t_768['R@1']) }}</td><td class="n">–</td><td class="n">–</td><td class="n">{{ pct(M.photos.cloud_i2t_768['R@1']) }}</td><td class="n">–</td><td class="n">–</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">At 128 dimensions the local model keeps {{ pct(M.photos.loc_t2i_128['R@1']) }} R@1 and the cloud model drops to {{ pct(M.photos.cloud_t2i_128['R@1']) }}. The 270M text-only build of the local model produced the same query vectors as the full model (cosine ≥ {{ M.photos.text_only_model.cosine_vs_full_model_min }}) and the same R@1, so you can index photos with the full model on a server and search them from a phone with the small one.</p>
+  </div>
+  <div class="sub">
+    <h3>Search photos in six languages, typed and spoken</h3>
+    <p>50 captions translated into German, Spanish, Hindi, Arabic and Malayalam, then spoken with macOS voices (English, Hindi "Lekha", Arabic "Majed"). The audio goes straight into each model with no transcription.</p>
+    <figure>
+      <div class="legend"><span><i class="l"></i>EmbeddingGemma 2</span><span><i class="c"></i>Gemini Embedding 2</span></div>
+      <div class="chart">{{ mlp }}</div>
+      <div class="chart">{{ spk }}</div>
+      <figcaption>Right photo ranked first among 1,000 (R@1), 50 queries per language. Typed: local is close except Malayalam ({{ pct(M.multilingual_photos.typed.ml.loc['R@1']) }} vs {{ pct(M.multilingual_photos.typed.ml.cloud['R@1']) }}). Spoken: English ties at {{ pct(M.multilingual_photos.spoken.en.loc['R@1']) }}; for spoken Hindi and Arabic the local model scores about half of the cloud's.</figcaption>
+    </figure>
+  </div>
+  <div class="sub">
+    <h3>Sounds, voice notes and PDF pages</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Test</th><th class="n">Local</th><th class="n">Cloud</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Name a sound, find a clip of it (top-1, 50 sounds)</td><td class="n">{{ pct(M.sounds.loc.label_to_clip_top1) }}</td><td class="n best">{{ pct(M.sounds.cloud.label_to_clip_top1) }}</td><td>Chance is 2%. A community demo reported about 24% for the local model; we got {{ pct(M.sounds.loc.label_to_clip_top1) }}</td></tr>
+        <tr><td>Classify each of 500 clips into 50 sounds</td><td class="n">{{ pct(M.sounds.loc.zero_shot_clip_classification) }}</td><td class="n best">{{ pct(M.sounds.cloud.zero_shot_clip_classification) }}</td><td>Weakest locally: {{ M.sounds.loc.weakest_classes|join(', ')|replace('_',' ') }}</td></tr>
+        <tr><td>Voice note → its transcript (73 clips)</td><td class="n">{{ pct(M.speech.loc.audio_to_text['R@1']) }}</td><td class="n">{{ pct(M.speech.cloud.audio_to_text['R@1']) }}</td><td>Clean read English speech; both are perfect, so this sample is too easy to separate them</td></tr>
+        <tr><td>Find the PDF page from page images ({{ M.pdf.queries }} queries, {{ M.pdf.pages }} pages)</td><td class="n best">{{ pct(M.pdf.loc.page_image['R@1']) }}</td><td class="n">{{ pct(M.pdf.cloud.page_image['R@1']) }}</td><td>Top-5: {{ pct(M.pdf.loc.page_image['R@5']) }} vs {{ pct(M.pdf.cloud.page_image['R@5']) }}. Small sample</td></tr>
+        <tr><td>Same PDF pages, using extracted text instead</td><td class="n">{{ pct(M.pdf.loc.extracted_text['R@1']) }}</td><td class="n">{{ pct(M.pdf.cloud.extracted_text['R@1']) }}</td><td>Text extraction helps both, but page images alone work without any OCR</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="callout">
+    <p><strong>Mixed indexes lean towards the query's own file type.</strong> With 1,000 photos and 1,000 captions in one index, a photo query in the cloud model ranked every other photo above its own caption (median rank {{ M.photos.cloud_bias.image_q_median_rank_own_caption }}). The local model put the caption at median #{{ M.photos.loc_bias.image_q_median_rank_own_caption }}, and in the top 10 for {{ pct(M.photos.loc_bias.image_q_own_caption_top10) }} of photos. Text queries returned only {{ pct(M.photos.loc_bias.text_q_top10_image_share) }} (local) and {{ pct(M.photos.cloud_bias.text_q_top10_image_share) }} (cloud) photos in their top 10. A community demo reported the same effect. If one index holds several file types, score each type separately or calibrate per type; with the cloud model this is mandatory.</p>
+  </div>
+</section>
+
+<section id="extended">
+  <h2>Extended tests</h2>
+  <p>Follow-up experiments on the questions a team asks before rolling this out: does mixing in keyword search help, what happens with long documents, can the file-type bias be fixed, and how does each model compare with other options.</p>
+
+  {% if X.hybrid %}<div class="sub">
+    <h3>Hybrid search: keywords plus embeddings</h3>
+    <p>Reciprocal rank fusion of BM25 and each model's top 100 (k = 60), scored at 768d.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Test</th><th class="n">Keyword</th><th class="n">Local</th><th class="n">Local + keyword</th><th class="n">Cloud</th><th class="n">Cloud + keyword</th></tr></thead>
+      <tbody>{% for k, lab in [('codesearch','Code search'),('stackoverflow','Developer Q&A'),('quora','Duplicate questions'),('fiqa','Finance'),('legal','Legal'),('scifact','Science claims'),('nfcorpus','Medical')] %}{% set h = X.hybrid[k] %}
+        <tr><td>{{ lab }}</td><td class="n">{{ f3(h.bm25) }}</td><td class="n">{{ f3(h.loc) }}</td><td class="n {{ 'best' if h.loc_hybrid > h.loc + 0.005 }}">{{ f3(h.loc_hybrid) }}</td><td class="n">{{ f3(h.cloud) }}</td><td class="n {{ 'best' if h.cloud_hybrid > h.cloud + 0.005 }}">{{ f3(h.cloud_hybrid) }}</td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    <p class="note">Hybrid helps where exact wording matters (legal; finance and medical for the local model) and hurts where keywords mislead (code, developer Q&amp;A, science claims). It never lifts the local model to the cloud's level on finance. Test it per corpus rather than turning it on everywhere.</p>
+  </div>{% endif %}
+
+  {% if X.long_docs %}<div class="sub">
+    <h3>Long documents: where the answer sits matters</h3>
+    <p>Each SciFact document was padded to about five abstracts (1,500 to 2,000 tokens) with the relevant one placed first, in the middle, or last.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Relevant passage</th><th class="n">Local nDCG@10</th><th class="n">Cloud nDCG@10</th></tr></thead>
+      <tbody>{% for k, lab in [('short','Alone (short document)'),('start','At the start'),('middle','In the middle'),('end','At the end')] %}{% if X.long_docs[k] %}<tr><td>{{ lab }}</td><td class="n">{{ f3(X.long_docs[k].loc) }}</td><td class="n">{{ f3(X.long_docs[k].cloud) }}</td></tr>{% endif %}{% endfor %}</tbody>
+    </table></div>
+    <p class="note">Both models summarise a long input into one vector, so a passage buried in the middle of a long document is mostly lost. Chunk documents into passages of a few hundred tokens before embedding. That matters more than which model you pick.</p>
+  </div>{% endif %}
+
+  {% if X.mixed_input %}<div class="sub">
+    <h3>Mixed inputs: photo and caption in one vector</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>What the index stores per photo</th><th class="n">Local R@1</th><th class="n">Cloud R@1</th></tr></thead>
+      <tbody>
+        <tr><td>The photo alone</td><td class="n">{{ pct(X.mixed_input.loc.photo_only) }}</td><td class="n">{{ pct(X.mixed_input.cloud.photo_only) }}</td></tr>
+        <tr><td>One caption alone (text)</td><td class="n">{{ pct(X.mixed_input.loc.caption_only) }}</td><td class="n">{{ pct(X.mixed_input.cloud.caption_only) }}</td></tr>
+        <tr><td>Photo and caption together in one vector</td><td class="n">{{ pct(X.mixed_input.loc.photo_plus_caption) }}</td><td class="n">{{ pct(X.mixed_input.cloud.photo_plus_caption) }}</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Query: a different human caption of the same photo, 1,000 photos. Adding a short caption to the photo did not beat the photo alone for either model; the photo already carries the information, and the text dilutes it.</p>
+  </div>{% endif %}
+
+  {% if X.calibration %}<div class="sub">
+    <h3>Fixing the file-type bias</h3>
+    <p>Mixed index of 1,000 photos and 1,000 captions. "Calibrated" standardises each query's scores within each file type before merging the lists.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Query</th><th>Model</th><th class="n">Photos in top 10, raw → calibrated</th><th class="n">R@1, raw → calibrated</th></tr></thead>
+      <tbody>{% for m, lab in [('loc','EmbeddingGemma 2'),('cloud','Gemini Embedding 2')] %}{% set c = X.calibration[m] %}
+        <tr><td>Text (photo or caption is correct)</td><td>{{ lab }}</td><td class="n">{{ pct(c.text_query_raw.top10_image_share) }} → {{ pct(c.text_query_calibrated.top10_image_share) }}</td><td class="n">{{ pct(c.text_query_raw['R@1']) }} → <strong>{{ pct(c.text_query_calibrated['R@1']) }}</strong></td></tr>
+        <tr><td>Photo (its caption is correct)</td><td>{{ lab }}</td><td class="n">{{ pct(c.photo_query_raw.top10_image_share) }} → {{ pct(c.photo_query_calibrated.top10_image_share) }}</td><td class="n">{{ pct(c.photo_query_raw['R@1']) }} → <strong>{{ pct(c.photo_query_calibrated['R@1']) }}</strong></td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    <p class="note">A few lines of code fix most of the bias. With calibration the cloud model becomes the better choice for mixed photo-and-text search; without it, its photo queries never find text.</p>
+  </div>{% endif %}
+
+  {% if X.dedupe or X.clustering %}<div class="sub">
+    <h3>Duplicate detection thresholds and topic clustering</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th></th><th class="n">Local</th><th class="n">Cloud</th></tr></thead>
+      <tbody>
+        {% if X.dedupe %}<tr><td>Duplicate support questions: average precision</td><td class="n">{{ f3(X.dedupe.loc.ap) }}</td><td class="n">{{ f3(X.dedupe.cloud.ap) }}</td></tr>
+        <tr><td>Best F1 and the cosine threshold that gives it</td><td class="n">{{ f3(X.dedupe.loc.best_f1) }} at {{ "%.2f"|format(X.dedupe.loc.threshold) }}</td><td class="n">{{ f3(X.dedupe.cloud.best_f1) }} at {{ "%.2f"|format(X.dedupe.cloud.threshold) }}</td></tr>
+        <tr><td>Median cosine: duplicates vs non-duplicates</td><td class="n">{{ "%.2f"|format(X.dedupe.loc.dup_cos_median) }} vs {{ "%.2f"|format(X.dedupe.loc.nondup_cos_median) }}</td><td class="n">{{ "%.2f"|format(X.dedupe.cloud.dup_cos_median) }} vs {{ "%.2f"|format(X.dedupe.cloud.nondup_cos_median) }}</td></tr>{% endif %}
+        {% if X.clustering %}<tr><td>Ticket topic clustering, V-measure (768d / 256d)</td><td class="n">{{ f3(X.clustering.loc_768.v_measure) }} / {{ f3(X.clustering.loc_256.v_measure) }}</td><td class="n">{{ f3(X.clustering.cloud_768.v_measure) }} / {{ f3(X.clustering.cloud_256.v_measure) }}</td></tr>{% endif %}
+      </tbody>
+    </table></div>
+    <p class="note">The two models use very different similarity scales, so a threshold tuned for one is wrong for the other. Re-tune it whenever you switch models. Duplicates: Sprint support forum, all 1,000 true duplicates plus 4,000 random non-duplicates.</p>
+  </div>{% endif %}
+
+  {% if X.fleurs %}<div class="sub">
+    <h3>Real voices (FLEURS)</h3>
+    <p>150 sentences read aloud by real people in each language. The recording goes straight in, with no transcription.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Language</th><th class="n">Local: speech → transcript</th><th class="n">Cloud: speech → transcript</th><th class="n">Local: speech → English text</th><th class="n">Cloud: speech → English text</th></tr></thead>
+      <tbody>{% for lang, v in X.fleurs.items() if v is mapping and v.loc is defined %}
+        <tr><td>{{ lang }}</td><td class="n">{{ pct(v.loc['speech_to_own_transcript_R@1']) }}</td><td class="n">{{ pct(v.cloud['speech_to_own_transcript_R@1']) }}</td><td class="n">{{ pct(v.loc['speech_to_english_R@1']) }}</td><td class="n">{{ pct(v.cloud['speech_to_english_R@1']) }}</td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    <p class="note">R@1 among 150 candidates. The English column is cross-lingual: a Malayalam recording has to find its English translation.</p>
+  </div>{% endif %}
+
+  {% if X.video %}<div class="sub">
+    <h3>Finding a moment in a video</h3>
+    <p>The first five minutes of <em>Big Buck Bunny</em> cut into sixty 5-second clips, searched with {{ 18 }} hand-written descriptions such as "the rabbit sniffing a white flower". The local model received frames at 1 per second, its default sampling rate.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th></th><th class="n">Local</th><th class="n">Cloud</th></tr></thead>
+      <tbody><tr><td>Right clip first (R@1)</td><td class="n">{{ pct(X.video.loc['R@1']) }}</td><td class="n">{{ pct(X.video.cloud['R@1']) }}</td></tr>
+      <tr><td>Right clip in top 3</td><td class="n">{{ pct(X.video.loc['R@3']) }}</td><td class="n">{{ pct(X.video.cloud['R@3']) }}</td></tr></tbody>
+    </table></div>
+  </div>{% endif %}
+
+  {% if X.baselines %}<div class="sub">
+    <h3>Against other models</h3>
+    <p>Same samples, same prompts style. Qwen3-Embedding-0.6B is a popular open model of similar size (run with llama.cpp, Q8_0). Gemini Embedding 1 is the previous cloud model.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Test (nDCG@10, 768d)</th><th class="n">EmbeddingGemma 2</th><th class="n">Qwen3-Embedding 0.6B</th><th class="n">Gemini Embedding 1</th><th class="n">Gemini Embedding 2</th></tr></thead>
+      <tbody>{% for k, lab in [('codesearch','Code search'),('stackoverflow','Developer Q&A'),('quora','Duplicate questions'),('fiqa','Finance'),('legal','Legal'),('scifact','Science claims'),('nfcorpus','Medical')] %}{% set b = X.baselines[k] %}
+        <tr><td>{{ lab }}</td><td class="n">{{ f3(T[k].loc_768.ndcg10) }}</td><td class="n">{{ f3(b.qwen) }}</td><td class="n">{{ f3(b.g1) }}</td><td class="n">{{ f3(T[k].cloud_768.ndcg10) }}</td></tr>{% endfor %}
+        {% set tl = X.baselines.tatoeba %}<tr><td>Translation matching, 6 languages (accuracy)</td><td class="n">{{ pct(T.tatoeba.langs.values()|map(attribute='loc')|sum / 6) }}</td><td class="n">{{ pct(tl.values()|map(attribute='qwen')|sum / 6) }}</td><td class="n">{{ pct(tl.values()|map(attribute='g1')|sum / 6) }}</td><td class="n">{{ pct(T.tatoeba.langs.values()|map(attribute='cloud')|sum / 6) }}</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note"><strong>The older cloud model beats the new one on text.</strong> Gemini Embedding 1 scored higher than Gemini Embedding 2 on finance ({{ f3(X.baselines.fiqa.g1) }} vs {{ f3(T.fiqa.cloud_768.ndcg10) }}), legal ({{ f3(X.baselines.legal.g1) }} vs {{ f3(T.legal.cloud_768.ndcg10) }}) and five of six languages (tied on the sixth). Gemini Embedding 2's advantage is multimodal input. For a text-only workload, test both. Among open models of this size, EmbeddingGemma 2 beats Qwen3-Embedding 0.6B clearly on science claims, legal and every language, and is level elsewhere (Qwen3 edges ahead on medical and developer Q&amp;A by under half a point).</p>
+  </div>{% endif %}
+
+  {% if X.q4_cpu or X.ann_scale %}<div class="sub">
+    <h3>Smaller builds, CPU only, and scale</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th></th><th class="n">Result</th></tr></thead>
+      <tbody>
+        {% if X.q4_cpu %}<tr><td>4-bit build (UD-Q4_K_XL, {{ X.q4_cpu.sizes_mb['embeddinggemma-2-UD-Q4_K_XL.gguf'] }} MB) vs 8-bit ({{ X.q4_cpu.sizes_mb['embeddinggemma-2-Q8_0.gguf'] }} MB): science claims nDCG@10</td><td class="n">{{ f3(X.q4_cpu.q4_scifact) }} vs {{ f3(T.scifact.loc_768.ndcg10) }}</td></tr>
+        <tr><td>4-bit vs 8-bit: legal clauses nDCG@10</td><td class="n">{{ f3(X.q4_cpu.q4_legal) }} vs {{ f3(T.legal.loc_768.ndcg10) }}</td></tr>
+        <tr><td>Text query on 4 CPU threads, no GPU (phone-class), median: 4-bit / 8-bit</td><td class="n">{{ "%.0f"|format(X.q4_cpu.cpu4_q4_p50_ms) }} / {{ "%.0f"|format(X.q4_cpu.cpu4_q8_p50_ms) }} ms</td></tr>{% endif %}
+        {% if X.ann_scale %}{% for d in ('768d','256d') %}{% set a = X.ann_scale[d] %}{% set rl = X.ann_scale.real[d] %}<tr><td>1M vectors at {{ d }} ({{ a.memory_gb }} GB float32): exact search / HNSW index, per query; HNSW build time</td><td class="n">{{ a.brute_force_ms_per_query }} / {{ a.hnsw_ms_per_query }} ms · {{ "%.0f"|format(a.hnsw_build_s / 60) }} min</td></tr>
+        <tr><td>HNSW recall@10 on {{ "{:,}".format(X.ann_scale.real.docs) }} real EmbeddingGemma 2 vectors at {{ d }}</td><td class="n">{{ pct(rl['hnsw_recall@10']) }} · {{ rl.ms_per_query }} ms</td></tr>{% endfor %}{% endif %}
+      </tbody>
+    </table></div>
+    <p class="note">Search speed depends only on vector size and the index, not on which model made the vectors, so 256d is also three times cheaper to search exactly. The 1M timings use random unit vectors on this Mac's CPU under load; recall is measured on real vectors, because random data is a worst case for approximate indexes. The 4-bit build loses almost nothing and fits in {{ X.q4_cpu.sizes_mb['embeddinggemma-2-UD-Q4_K_XL.gguf'] }} MB.</p>
+  </div>{% endif %}
+</section>
+
+<section id="dims">
+  <h2>Vector size</h2>
+  <p>Both models let you keep only the first part of each vector to save storage. This chart shows the share of full-size (768d) quality kept, averaged over the seven document-search tests, with photo search dashed.</p>
+  <figure>
+    <div class="legend"><span><i class="l"></i>EmbeddingGemma 2</span><span><i class="c"></i>Gemini Embedding 2</span><span><i class="d"></i>photo search</span></div>
+    <div class="chart">{{ mrl }}</div>
+    <figcaption>256d keeps {{ pct(mrl_ret.loc[2]) }} (local) and {{ pct(mrl_ret.cloud[2]) }} (cloud) of text quality at a third of the storage: the sensible default. At 128d the cloud model loses a quarter of its photo-search quality. The cloud's full 3072d adds at most 0.01 nDCG over 768d on any test.</figcaption>
+  </figure>
+</section>
+
+<section id="speed">
+  <h2>Speed, cost and footprint</h2>
+  <figure>
+    <div class="legend"><span><i class="l"></i>EmbeddingGemma 2</span><span><i class="c"></i>Gemini Embedding 2</span></div>
+    <div class="chart">{{ latency }}</div>
+    <figcaption>Median time to embed one query. Local text runs on llama.cpp; local photo and voice queries run on PyTorch. Cloud times are mostly network round trips from India.</figcaption>
+  </figure>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th class="n">EmbeddingGemma 2</th><th class="n">Gemini Embedding 2</th></tr></thead>
+    <tbody>
+      <tr><td>Text query, median / 95th percentile</td><td class="n best">{{ "%.0f"|format(L.text_p50_loc) }} / {{ "%.0f"|format(L.text_p95_loc) }} ms</td><td class="n">{{ "%.0f"|format(L.text_p50_cloud) }} / {{ "%.0f"|format(L.text_p95_cloud) }} ms</td></tr>
+      <tr><td>Queries per second, 1 at a time</td><td class="n best">{{ "%.0f"|format(L.qps_loc_c1) }}</td><td class="n">{{ "%.1f"|format(L.qps_cloud_c1) }}</td></tr>
+      <tr><td>Queries per second, 16 in parallel</td><td class="n best">{{ "%.0f"|format(L.qps_loc_c16) }}</td><td class="n">{{ "%.0f"|format(L.qps_cloud_c16) }}</td></tr>
+      <tr><td>Photo query, median</td><td class="n best">{{ M.latency.image_query.loc_p50_ms }} ms</td><td class="n">{{ M.latency.image_query.cloud_p50_ms }} ms</td></tr>
+      <tr><td>Voice query, median</td><td class="n best">{{ M.latency.audio_query.loc_p50_ms }} ms</td><td class="n">{{ M.latency.audio_query.cloud_p50_ms }} ms</td></tr>
+      <tr><td>Bulk indexing, abstracts (8 parallel requests for cloud)</td><td class="n">{{ "%.0f"|format(T.scifact.loc_index_docs_per_s) }} docs/s</td><td class="n best">{{ "%.0f"|format(T.scifact.cloud_index_docs_per_s) }} docs/s</td></tr>
+      <tr><td>Index 1M documents (~375 tokens each)</td><td class="n">~{{ "%.0f"|format(1e6 / T.scifact.loc_index_docs_per_s / 3600) }} h on this Mac, $0</td><td class="n">~{{ "%.0f"|format(1e6 / T.scifact.cloud_index_docs_per_s / 3600) }} h, ~$75</td></tr>
+      <tr><td>Storage for 1M vectors, float32</td><td class="n">3.1 GB at 768d · 1.0 GB at 256d</td><td class="n">12.3 GB at 3072d · 3.1 GB at 768d</td></tr>
+      <tr><td>Memory to run</td><td class="n">310 MB (Q8_0 text) · 1.5 GB bf16 weights, full multimodal</td><td class="n">none locally</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Measured under heavy shared load (load average {{ L.load_avg }} at the end of the speed run). An earlier, quieter run indexed 2.4× faster with llama.cpp than with PyTorch.</p>
+</section>
+
+<section id="decide">
+  <h2>What to use when</h2>
+  <figure>
+    <img class="theme-img light" src="{{ img['decision-light'] }}" alt="Decision flow: ask in order whether the content is non-English, finance or developer Q&amp;A, sound effects or non-English voice, judging fit, or near-exact duplicates. Yes to the first three means use Gemini; yes to judging fit means use an LLM rubric; yes to duplicates means keyword search; otherwise use EmbeddingGemma 2 locally.">
+    <img class="theme-img dark" src="{{ img['decision-dark'] }}" alt="">
+    <figcaption>Ask the questions left to right; the first "yes" decides. Drawn with Archify.</figcaption>
+  </figure>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Use case</th><th>Use</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Company docs, policies, contracts (English)</td><td><span class="chip local">local</span></td><td>Legal clauses: local ahead. Private by default, 13 ms queries</td></tr>
+      <tr><td>Code search across repos</td><td><span class="chip local">local</span></td><td>Within 1.3 points of cloud; source never leaves the machine</td></tr>
+      <tr><td>Developer or customer support answer search</td><td><span class="chip cloud">cloud</span></td><td>+8.5 points on question-to-answer matching</td></tr>
+      <tr><td>Finance research, investor Q&amp;A</td><td><span class="chip cloud">cloud</span></td><td>+21 points, the largest gap measured</td></tr>
+      <tr><td>Ticket routing, intent classification</td><td><span class="chip local">either</span></td><td>1.6-point gap with 16 examples per intent; local is free and instant</td></tr>
+      <tr><td>CRM or ticket de-duplication</td><td><span class="chip tie">keyword first</span></td><td>BM25 already scores {{ f3(B.quora) }}; add embeddings for paraphrases</td></tr>
+      <tr><td>Resume screening</td><td><span class="chip neither">neither</span></td><td>Both near chance on fit; use an LLM with a rubric</td></tr>
+      <tr><td>Arabic, Urdu, Tamil, Malayalam content</td><td><span class="chip cloud">cloud</span></td><td>9 to 18 points better on translation matching</td></tr>
+      <tr><td>Photo library, field photos</td><td><span class="chip local">local</span></td><td>2 points behind at 768d, ahead at 128d, private, works offline</td></tr>
+      <tr><td>Scanned PDFs and slide pages</td><td><span class="chip local">local</span></td><td>Page images work without OCR; local ranked better on our 18 queries</td></tr>
+      <tr><td>English voice notes and spoken search</td><td><span class="chip local">local</span></td><td>Tied with cloud; no transcription step</td></tr>
+      <tr><td>Sound effects; photo search by speaking Hindi or Arabic</td><td><span class="chip cloud">cloud</span></td><td>Sounds 26% vs 56% top-1; synthetic Hindi and Arabic voices halve local photo search</td></tr>
+      <tr><td>Voice notes in English, Hindi, Arabic, Malayalam (real speakers)</td><td><span class="chip local">either</span></td><td>Both match 98 to 100% of recordings to their transcripts</td></tr>
+      <tr><td>Video moments ("the scene where…")</td><td><span class="chip local">local</span></td><td>72% vs 61% first hit; both 89% in the top 3</td></tr>
+      <tr><td>One index mixing photos and text</td><td><span class="chip cloud">cloud + calibration</span></td><td>Raw scores bury the other file type; per-type calibration lifts text-query R@1 to 93% (cloud) and 88% (local)</td></tr>
+      <tr><td>Long documents, manuals, contracts</td><td><span class="chip tie">chunk first</span></td><td>Either model loses over half its quality when the answer is mid-document</td></tr>
+      <tr><td>Text-only search where you'd pay for the cloud</td><td><span class="chip cloud">test Gemini 1 too</span></td><td>Gemini Embedding 1 beat Gemini Embedding 2 on finance, legal and languages</td></tr>
+      <tr><td>Phones and laptops without a GPU</td><td><span class="chip local">local, 4-bit</span></td><td>176 MB model, about 31 ms per query on 4 CPU threads, near-identical quality</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="need">
+  <h2>Do we really need it?</h2>
+  <div class="cols">
+    <div class="dept"><h3>Do we need embeddings at all?</h3><p>For near-duplicate questions, keyword search scored {{ f3(B.quora) }} against 0.99 for both models, so start there. Everywhere else embeddings pay off: code search {{ f3(B.codesearch) }} → {{ f3(T.codesearch.loc_768.ndcg10) }}, claims to evidence {{ f3(B.scifact) }} → {{ f3(T.scifact.loc_768.ndcg10) }}, developer answers {{ f3(B.stackoverflow) }} → {{ f3(T.stackoverflow.loc_768.ndcg10) }}.</p></div>
+    <div class="dept"><h3>Do we need the cloud?</h3><p>Only for the cases in the decision chart: under-served languages, finance and support answer search, sound effects and non-English speech. That is {{ wins.cloud }} of {{ ROWS|length }} tests. Everything else runs free on the laptop.</p></div>
+    <div class="dept"><h3>Do we need 3072 dimensions?</h3><p>No. The cloud's 3072d adds at most 0.01 nDCG over 768d and quadruples storage. 256d loses about 2 points for either model.</p></div>
+    <div class="dept"><h3>Do we need the full local model?</h3><p>Not for searching. The 270M text-only build gives identical query vectors, so index photos and audio once with the full 740M model, then query with the small one on any device.</p></div>
+    <div class="dept"><h3>Do we need a GPU?</h3><p>Not for queries: the 4-bit build answers in about {{ "%.0f"|format(X.q4_cpu.cpu4_q4_p50_ms) }} ms on 4 CPU threads. A GPU matters for bulk indexing, especially images (about 4 per second here on PyTorch).</p></div>
+    <div class="dept"><h3>Do we need a vector database?</h3><p>Not below about a million documents. Exact search over 1M vectors at 256d took {{ X.ann_scale['256d'].brute_force_ms_per_query }} ms per query on this CPU. Above that, an HNSW index answers in under a millisecond and found {{ pct(X.ann_scale.real['256d']['hnsw_recall@10']) }} of the exact top 10 on real vectors.</p></div>
+    <div class="dept"><h3>Do we need hybrid search?</h3><p>Only for some corpora. Adding keyword search lifted legal and the local model's finance and medical scores, but lowered code and science search. Measure it on your data first.</p></div>
+    <div class="dept"><h3>Do we need to fine-tune?</h3><p>For Malayalam, Urdu or Arabic speech, or a narrow domain like finance, fine-tuning the open model is the way to close the gap without paying per call. The weights are Apache 2.0.</p></div>
+  </div>
+</section>
+
+<section id="method">
+  <h2>Method and caveats</h2>
+  <ol class="steps">
+    <li><strong>Same inputs:</strong> both models embed exactly the same texts, images and audio, truncated at 16,000 characters. Each gets its documented task prompt: a text prefix for EmbeddingGemma 2, a <code>task_type</code> for Gemini.</li>
+    <li><strong>Large corpora are sampled:</strong> for FiQA, Quora and StackOverflow we kept every relevant document for 300 sampled queries and filled to 8,000 to 10,000 documents with random distractors (seeded). The keyword baseline reproduces the same samples.</li>
+    <li><strong>Statistics:</strong> per-query scores for both models, 2,000 paired bootstrap resamples, 95% interval. A gap counts as a win only if the interval excludes zero and the gap is at least 3 points.</li>
+    <li><strong>Contamination:</strong> these are public datasets, and either model may have seen them in training. That inflates absolute scores (SciFact is unusually high for both); the comparison between models is the useful part. Test on your own data before committing.</li>
+    <li><strong>Synthetic inputs:</strong> spoken queries come from macOS text-to-speech, and the five translations came from Gemini 3.5 Flash. Real accents and noise will be harder.</li>
+    <li><strong>Small samples:</strong> PDF pages (18 queries) and voice notes (73 clips) have no confidence interval. Treat them as directional.</li>
+    <li><strong>Similarity scoring:</strong> the cloud model scored 0.77 Spearman on STS-B with its <code>SEMANTIC_SIMILARITY</code> task type, lower than expected. We did not tune task types beyond the documented ones.</li>
+    <li><strong>Shared machine:</strong> load average went above 200 during the run, mostly from a browser and endpoint security software, so local throughput figures are a floor.</li>
+  </ol>
+</section>
+
+<section id="privacy">
+  <h2>Privacy and data residency</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>EmbeddingGemma 2 (local)</th><th>Gemini Embedding 2 (cloud)</th></tr></thead>
+    <tbody>
+      <tr><td>Where data goes</td><td>Nowhere. Embedding runs on the device, offline if needed</td><td>Sent to Google for every document and query</td></tr>
+      <tr><td>Used for training</td><td>No</td><td>Paid tier: not used to improve Google products. Free tier: may be</td></tr>
+      <tr><td>Regional processing</td><td>Wherever you run it</td><td>Standard Gemini API: no region choice. Vertex AI regional endpoints include Mumbai (asia-south1), Doha (me-central1) and Dammam (me-central2)</td></tr>
+      <tr><td>Bulk discount</td><td>Not applicable</td><td>Batch API at half price ($0.10 per 1M text tokens)</td></tr>
+      <tr><td>Vendor risk</td><td>Weights are yours to keep (Apache 2.0)</td><td>Model can be updated or retired; re-embedding a corpus means paying again</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Policies as published by Google in October 2026; check your own contract terms.</p>
+</section>
+
+<section id="limits">
+  <h2>What this benchmark does not cover</h2>
+  <ul class="steps">
+    <li>Your own documents. Public datasets can be in either model's training data; a small labelled sample of your own content is the test that matters.</li>
+    <li>Noisy real-world audio such as phone calls or messaging-app voice notes. FLEURS is clean read speech.</li>
+    <li>Fine-tuning. The open model can be fine-tuned on your data; the cloud model cannot.</li>
+    <li>Cloud rate limits, error rates and multi-day stability. Our runs saw no failed requests, but we did not stress the quota.</li>
+    <li>A phone. CPU-only timings on this Mac stand in for on-device numbers.</li>
+    <li>Rerankers and chunking strategies beyond the long-document test.</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <h2>Data sources and credits</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Data</th><th>Used for</th><th>Source and licence</th></tr></thead>
+    <tbody>
+      <tr><td>SciFact, NFCorpus, FiQA, Quora</td><td>Science, medical, finance, duplicate search</td><td>BEIR / MTEB on Hugging Face (<code>mteb/*</code>), each under its original licence</td></tr>
+      <tr><td>CodeSearchNet (Python), StackOverflowQA</td><td>Code and developer search</td><td><code>mteb/CodeSearchNetRetrieval</code>, <code>mteb/StackOverflowQA</code></td></tr>
+      <tr><td>LegalBench consumer contracts QA</td><td>Legal</td><td><code>mteb/legalbench_consumer_contracts_qa</code></td></tr>
+      <tr><td>Banking77, STS-B, Sprint duplicate questions</td><td>Routing, clustering, similarity, duplicates</td><td><code>mteb/banking77</code>, <code>mteb/stsbenchmark-sts</code>, <code>mteb/sprintduplicatequestions-pairclassification</code></td></tr>
+      <tr><td>Resume and job description fit</td><td>HR</td><td><code>cnamuangtoun/resume-job-description-fit</code></td></tr>
+      <tr><td>Tatoeba</td><td>Translation matching</td><td><code>mteb/tatoeba-bitext-mining</code> (CC-BY 2.0 FR)</td></tr>
+      <tr><td>Flickr30k test images and captions</td><td>Photo search</td><td><code>lmms-lab/flickr30k</code>; images remain their owners'; used only to compute embeddings, not reproduced here</td></tr>
+      <tr><td>ESC-50</td><td>Sound search</td><td><code>ashraq/esc50</code> (CC BY-NC 3.0)</td></tr>
+      <tr><td>LibriSpeech (sample), FLEURS</td><td>Voice notes, real voices</td><td><code>hf-internal-testing/librispeech_asr_dummy</code> (CC BY 4.0), <code>google/fleurs</code> (CC BY 4.0)</td></tr>
+      <tr><td>Big Buck Bunny</td><td>Video moments</td><td>© Blender Foundation, CC BY 3.0, peach.blender.org</td></tr>
+      <tr><td>Attention Is All You Need, BERT, ResNet papers</td><td>PDF pages</td><td>arXiv 1706.03762, 1810.04805, 1512.03385</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Models: <code>google/embeddinggemma-2</code> (Apache 2.0) and its GGUF builds from ggml-org and Unsloth; <code>Qwen/Qwen3-Embedding-0.6B-GGUF</code> (Apache 2.0); Google Gemini API models <code>gemini-embedding-2</code> and <code>gemini-embedding-001</code>. Diagrams drawn with Archify.</p>
+</section>
+
+<section id="repro">
+  <h2>Reproduce</h2>
+  <p>Everything is in the public repository <a href="https://github.com/shivanathd/embeddinggemma2-vs-gemini-bench">github.com/shivanathd/embeddinggemma2-vs-gemini-bench</a>, including every result file and log behind this page. It runs on an Apple Silicon Mac with no admin rights. Embeddings are cached, so a re-run only recomputes scores.</p>
+<pre><code>git clone https://github.com/shivanathd/embeddinggemma2-vs-gemini-bench
+cd embeddinggemma2-vs-gemini-bench
+python3 -m venv .venv && .venv/bin/pip install jinja2 numpy   # enough to rebuild this page
+.venv/bin/python build_report.py report/index.html            # from the committed results
+
+# Full re-run on an Apple Silicon Mac (~3-5 h, ~$5 of Gemini usage)
+scripts/setup.sh                      # env, llama.cpp, models, PDFs, video, FLEURS, spoken queries
+export GOOGLE_API_KEY=...             # a Gemini API key
+scripts/run_all.sh                    # every suite in the required order, then rebuilds report/index.html</code></pre>
+  <div class="table-wrap"><table>
+    <thead><tr><th>File</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>bench.py</code></td><td>Shared helpers: local model loader, cloud batching (100 per call, one <code>Content</code> per item), truncation</td></tr>
+      <tr><td><code>suite_text.py</code></td><td>Retrieval, classification, similarity, HR fit and translation tests with bootstrap intervals</td></tr>
+      <tr><td><code>suite_media.py</code></td><td>Photo, multilingual, spoken, sound, voice-note, PDF and latency tests</td></tr>
+      <tr><td><code>suite_bm25.py</code> · <code>suite_speed.py</code></td><td>Keyword baseline · speed and concurrency</td></tr>
+      <tr><td><code>suite_more.py</code> · <code>ann_scale.py</code></td><td>Hybrid, long documents, bias fix, mixed inputs, duplicates, clustering, real voices, video, other models, 4-bit and CPU builds · scale</td></tr>
+      <tr><td><code>results/*.json</code> · <code>logs/*.log</code></td><td>Every number on this page, and the raw run output</td></tr>
+      <tr><td><code>.archify/</code></td><td>Diagram sources (JSON) and interactive HTML for both figures</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="mod">
+  <h2>Watching it run: the bench-watch mod</h2>
+  <p>A Claude Code mod (a plugin that adds to Claude Code's own interface) showed the benchmark live while it ran: which suites were running, the newest line of each log, a local-vs-cloud scoreboard that filled in as results landed, system load, and the tool calls Claude was making. It also adds a one-line summary to the status line and a <code>/bench</code> command to reopen the pane.</p>
+  <figure>
+    <img class="theme-img-fixed" src="{{ img['mod'] }}" alt="The bench-watch pane in Claude Code: system load, running jobs, latest log lines, and a scoreboard with green local and blue cloud bars for each test.">
+    <figcaption>The pane in a terminal, after the last run finished. Green bars are EmbeddingGemma 2, blue bars Gemini Embedding 2; the word at the end of each row is the winner, or "tie" when the gap is under 3 points.</figcaption>
+  </figure>
+  <div class="cols">
+    <div class="dept"><h3>How it works</h3><p>Every 3 seconds the mod reads <code>logs/*.log</code> and <code>results/*.json</code>, lists running processes and reads the load average, then redraws the pane. A <code>tool.call</code> hook records each tool Claude runs. It never blocks a tool: its bookkeeping errors are swallowed.</p></div>
+    <div class="dept"><h3>Install</h3><p>Copy the five <code>bench-watch/</code> files below into a folder, then start Claude Code with <code>claude --plugin-dir ./bench-watch</code>. Check it with <code>claude plugin validate ./bench-watch</code> and <code>claude plugin test ./bench-watch</code>. Point the paths at your own benchmark folder.</p></div>
+  </div>
+</section>
+
+<section id="code">
+  <h2>Source code</h2>
+  <p>Every script used for this report, in full. The only edits are for publication: the line that loaded the author's API key now asserts <code>GOOGLE_API_KEY</code> is set, and personal paths are replaced with <code>~</code>. Requirements: Python 3.13 with <code>sentence-transformers&gt;=6.1</code>, <code>transformers&gt;=5</code>, <code>torch</code>, <code>google-genai</code>, <code>datasets</code>, <code>scikit-learn</code>, <code>scipy</code>, <code>bm25s</code>, <code>PyStemmer</code>, <code>faiss-cpu</code>, <code>soundfile</code>, <code>jinja2</code>; llama.cpp b11541; <code>ffmpeg</code> and <code>pdftoppm</code>.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>File</th><th class="n">Lines</th><th>What it does</th></tr></thead>
+    <tbody>{% for shown, desc, txt, n in code %}<tr><td><a href="#src-{{ loop.index }}"><code>{{ shown }}</code></a></td><td class="n">{{ n }}</td><td>{{ desc }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% for shown, desc, txt, n in code %}
+  <details id="src-{{ loop.index }}"><summary><code>{{ shown }}</code> <span class="note">· {{ n }} lines · {{ desc }}</span></summary><div>
+    <div><button type="button" class="copy" data-target="code-{{ loop.index }}">Copy</button></div>
+    <pre class="log" id="code-{{ loop.index }}">{{ e(txt) }}</pre>
+  </div></details>
+  {% endfor %}
+</section>
+
+<section id="logs">
+  <h2>Logs and raw results</h2>
+  {% for name, txt in logs %}
+  <details><summary>{{ name }}</summary><div><pre class="log">{{ e(txt) }}</pre></div></details>
+  {% endfor %}
+  <details><summary>All results (JSON)</summary><div><pre class="log">{{ e(results_json) }}</pre></div></details>
+</section>
+</main>
+<div id="tip" hidden><span class="v"></span><span class="k"></span></div>
+<script>
+(() => {
+  const tip = document.getElementById("tip"), v = tip.querySelector(".v"), k = tip.querySelector(".k");
+  const show = (el, x, y) => {
+    const [label, val] = el.getAttribute("data-tip").split("|");
+    v.textContent = val || ""; k.textContent = label || ""; tip.hidden = false;
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.min(x + 14, innerWidth - w - 8) + "px";
+    tip.style.top = Math.max(8, y - h - 12) + "px";
+  };
+  document.addEventListener("pointermove", ev => {
+    const el = ev.target.closest && ev.target.closest("[data-tip]");
+    if (el) show(el, ev.clientX, ev.clientY); else tip.hidden = true;
+  });
+  document.addEventListener("focusin", ev => {
+    const el = ev.target.closest && ev.target.closest("[data-tip]");
+    if (!el) { tip.hidden = true; return; }
+    const r = el.getBoundingClientRect(); show(el, r.right, r.top);
+  });
+  document.addEventListener("focusout", () => { tip.hidden = true; });
+  document.addEventListener("click", async ev => {
+    const b = ev.target.closest && ev.target.closest("button.copy");
+    if (!b) return;
+    const pre = document.getElementById(b.dataset.target);
+    try { await navigator.clipboard.writeText(pre.textContent); b.textContent = "Copied"; }
+    catch { const r = document.createRange(); r.selectNodeContents(pre); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent = "Selected: press ⌘C"; }
+    setTimeout(() => { b.textContent = "Copy"; }, 2500);
+  });
+})();
+</script>

@@ -1,0 +1,94 @@
+run start Sun Oct 11 15:28:52 IST 2026 load { 299.08 231.86 154.10 }
+codesearch {'bm25': 0.6351, 'loc': 0.956, 'loc_hybrid': 0.8103, 'cloud': 0.9686, 'cloud_hybrid': 0.8115}
+nfcorpus {'bm25': 0.3208, 'loc': 0.3538, 'loc_hybrid': 0.3684, 'cloud': 0.4272, 'cloud_hybrid': 0.393}
+scifact {'bm25': 0.6863, 'loc': 0.8526, 'loc_hybrid': 0.7875, 'cloud': 0.8964, 'cloud_hybrid': 0.7979}
+quora {'bm25': 0.975, 'loc': 0.9907, 'loc_hybrid': 0.9872, 'cloud': 0.9924, 'cloud_hybrid': 0.9914}
+stackoverflow {'bm25': 0.7251, 'loc': 0.898, 'loc_hybrid': 0.8324, 'cloud': 0.9827, 'cloud_hybrid': 0.8689}
+fiqa {'bm25': 0.4139, 'loc': 0.5085, 'loc_hybrid': 0.529, 'cloud': 0.7187, 'cloud_hybrid': 0.6069}
+legal {'bm25': 0.7099, 'loc': 0.7709, 'loc_hybrid': 0.7914, 'cloud': 0.7316, 'cloud_hybrid': 0.7518}
+== hybrid done in 53.8s
+  embedded 5000 x loc [sts] in 57.9s (86/s)
+  embedded 5000 x loc [sts] in 48.4s (103/s)
+  embedded 5000 x cloud [sts] in 21.5s (233/s)
+  embedded 5000 x cloud [sts] in 22.6s (221/s)
+{'dataset': 'Sprint duplicate questions (5000 pairs, 1000 duplicates)', 'metric': 'average precision; best-F1 cosine threshold', 'loc': {'ap': 0.9932279195570085, 'best_f1': 0.9659931000492853, 'threshold': 0.8888133764266968, 'precision': 0.9523809523809523, 'recall': 0.98, 'dup_cos_median': 0.951316237449646, 'nondup_cos_median': 0.7990269660949707}, 'cloud': {'ap': 0.9953801893661427, 'best_f1': 0.9727822580645161, 'threshold': 0.7861188054084778, 'precision': 0.9806910569105691, 'recall': 0.965, 'dup_cos_median': 0.8852067589759827, 'nondup_cos_median': 0.5868156552314758}}
+== dedupe done in 151.2s
+  embedded 1000 x loc [doc] in 49.1s (20/s)
+  embedded 1000 x cloud [doc] in 6.2s (161/s)
+short {'loc': 0.9223706814663033, 'cloud': 0.9511705627275611}
+  embedded 1000 x loc [doc] in 414.9s (2/s)
+  embedded 1000 x cloud [doc] in 8.0s (126/s)
+start {'loc': 0.7429255656981253, 'cloud': 0.6905988984921821}
+  embedded 1000 x loc [doc] in 408.1s (2/s)
+  embedded 1000 x cloud [doc] in 8.6s (117/s)
+middle {'loc': 0.33092104226654356, 'cloud': 0.316533093735304}
+  embedded 1000 x loc [doc] in 406.8s (2/s)
+  embedded 1000 x cloud [doc] in 8.7s (115/s)
+end {'loc': 0.3108923726942233, 'cloud': 0.3369044366480308}
+== long_docs done in 1311.5s
+  embedded 1000 x qwen [doc] in 86.4s (12/s)
+  embedded 1000 x qwen [code] in 70.7s (14/s)
+  embedded 1000 x g1 [doc] in 5.8s (172/s)
+  embedded 1000 x g1 [code] in 6.5s (153/s)
+codesearch {'qwen': 0.9409838572089356, 'g1': 0.9648576051373517, 'g1_3072': 0.9660052012331314}
+  embedded 3633 x qwen [doc] in 452.0s (8/s)
+  embedded 323 x qwen [query] in 10.2s (32/s)
+  embedded 3633 x g1 [doc] in 14.7s (246/s)
+  embedded 323 x g1 [query] in 2.7s (119/s)
+nfcorpus {'qwen': 0.35515821967087285, 'g1': 0.42717994627675937, 'g1_3072': 0.4306281573603223}
+  embedded 5183 x qwen [doc] in 413.5s (13/s)
+  embedded 300 x qwen [query] in 6.9s (43/s)
+  embedded 5183 x g1 [doc] in 19.2s (269/s)
+  embedded 300 x g1 [query] in 2.5s (118/s)
+scifact {'qwen': 0.6970536073668054, 'g1': 0.8997078538432012, 'g1_3072': 0.897090642919214}
+  embedded 10000 x qwen [doc] in 257.2s (39/s)
+  embedded 300 x qwen [query] in 5.1s (59/s)
+  embedded 10000 x g1 [doc] in 30.3s (330/s)
+  embedded 300 x g1 [query] in 2.6s (114/s)
+quora {'qwen': 0.987951001939896, 'g1': 0.9932845648754429, 'g1_3072': 0.9933820417909038}
+  embedded 8000 x qwen [doc] in 639.9s (13/s)
+  embedded 300 x qwen [code] in 27.7s (11/s)
+  embedded 8000 x g1 [doc] in 27.6s (290/s)
+  embedded 300 x g1 [code] in 2.7s (110/s)
+stackoverflow {'qwen': 0.9018412564300896, 'g1': 0.9698643835794823, 'g1_3072': 0.9692871994399608}
+  embedded 10000 x qwen [doc] in 523.5s (19/s)
+  embedded 300 x qwen [qa] in 8.8s (34/s)
+  embedded 10000 x g1 [doc] in 32.3s (309/s)
+  embedded 300 x g1 [qa] in 2.5s (119/s)
+fiqa {'qwen': 0.5083726202780935, 'g1': 0.786941736994283, 'g1_3072': 0.7980662013763529}
+  embedded 154 x qwen [doc] in 22.0s (7/s)
+  embedded 396 x qwen [qa] in 7.6s (52/s)
+  embedded 154 x g1 [doc] in 2.6s (60/s)
+  embedded 396 x g1 [qa] in 6.0s (66/s)
+legal {'qwen': 0.7247998231793412, 'g1': 0.8044722190076857, 'g1_3072': 0.8065110080644775}
+  embedded 1000 x qwen [sts] in 18.0s (56/s)
+  embedded 1000 x qwen [sts] in 18.9s (53/s)
+  embedded 1000 x g1 [sts] in 5.6s (178/s)
+  embedded 1000 x g1 [sts] in 5.0s (201/s)
+tatoeba ara {'qwen': 0.794, 'g1': 0.944}
+  embedded 1000 x qwen [sts] in 26.4s (38/s)
+  embedded 1000 x qwen [sts] in 24.3s (41/s)
+  embedded 1000 x g1 [sts] in 5.7s (176/s)
+  embedded 1000 x g1 [sts] in 4.4s (227/s)
+tatoeba hin {'qwen': 0.84, 'g1': 0.98}
+  embedded 687 x qwen [sts] in 20.9s (33/s)
+  embedded 687 x qwen [sts] in 13.6s (51/s)
+  embedded 687 x g1 [sts] in 3.3s (207/s)
+  embedded 687 x g1 [sts] in 2.8s (246/s)
+tatoeba mal {'qwen': 0.6273653566229985, 'g1': 0.9854439592430859}
+  embedded 307 x qwen [sts] in 8.0s (38/s)
+  embedded 307 x qwen [sts] in 5.3s (58/s)
+  embedded 307 x g1 [sts] in 3.0s (104/s)
+  embedded 307 x g1 [sts] in 2.5s (121/s)
+tatoeba tam {'qwen': 0.5667752442996743, 'g1': 0.9218241042345277}
+  embedded 1000 x qwen [sts] in 22.0s (45/s)
+  embedded 1000 x qwen [sts] in 22.8s (44/s)
+  embedded 1000 x g1 [sts] in 5.4s (184/s)
+  embedded 1000 x g1 [sts] in 5.0s (198/s)
+tatoeba urd {'qwen': 0.622, 'g1': 0.952}
+  embedded 1000 x qwen [sts] in 32.6s (31/s)
+  embedded 1000 x qwen [sts] in 26.4s (38/s)
+  embedded 1000 x g1 [sts] in 5.4s (187/s)
+  embedded 1000 x g1 [sts] in 4.9s (205/s)
+tatoeba fra {'qwen': 0.929, 'g1': 0.961}
+== baselines done in 2989.5s

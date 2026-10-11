@@ -1,0 +1,1 @@
+{ "name": "bench-watch", "version": "0.1.0", "description": "Live pane for the ~/embed-bench embedding benchmark: running jobs, log tails, scoreboard, load, and Claude's recent tool calls", "types": "./types/index.d.ts" }

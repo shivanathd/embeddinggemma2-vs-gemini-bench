@@ -1,0 +1,9 @@
+{
+ "codesearch": 0.6357,
+ "nfcorpus": 0.3211,
+ "scifact": 0.6863,
+ "quora": 0.9751,
+ "stackoverflow": 0.7251,
+ "fiqa": 0.4139,
+ "legal": 0.7108
+}

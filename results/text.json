@@ -1,0 +1,528 @@
+{
+ "legal": {
+  "use_case": "Legal: question to contract clause",
+  "dataset": "mteb/legalbench_consumer_contracts_qa",
+  "docs": 154,
+  "queries": 396,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 15.4,
+  "cloud_index_docs_per_s": 50.9,
+  "loc_768": {
+   "ndcg10": 0.7709,
+   "mrr10": 0.7169,
+   "recall10": 0.9394
+  },
+  "cloud_768": {
+   "ndcg10": 0.7316,
+   "mrr10": 0.6784,
+   "recall10": 0.9015
+  },
+  "loc_512": {
+   "ndcg10": 0.7748,
+   "mrr10": 0.7222,
+   "recall10": 0.9394
+  },
+  "cloud_512": {
+   "ndcg10": 0.7004,
+   "mrr10": 0.6503,
+   "recall10": 0.8586
+  },
+  "loc_256": {
+   "ndcg10": 0.7643,
+   "mrr10": 0.7104,
+   "recall10": 0.9343
+  },
+  "cloud_256": {
+   "ndcg10": 0.6896,
+   "mrr10": 0.6407,
+   "recall10": 0.8434
+  },
+  "loc_128": {
+   "ndcg10": 0.7162,
+   "mrr10": 0.6585,
+   "recall10": 0.899
+  },
+  "cloud_128": {
+   "ndcg10": 0.5946,
+   "mrr10": 0.5421,
+   "recall10": 0.7601
+  },
+  "cloud_3072": {
+   "ndcg10": 0.7344
+  },
+  "diff_768": [
+   -0.03928069368314113,
+   -0.07227206593704401,
+   -0.009511996145098192
+  ],
+  "wall_s": 19.7
+ },
+ "banking77": {
+  "use_case": "Support ticket routing (77 intents)",
+  "dataset": "mteb/banking77",
+  "metric": "accuracy",
+  "train": 1232,
+  "test": 1000,
+  "loc_768": {
+   "accuracy": 0.916
+  },
+  "loc_256": {
+   "accuracy": 0.913
+  },
+  "cloud_768": {
+   "accuracy": 0.932
+  },
+  "cloud_256": {
+   "accuracy": 0.927
+  },
+  "diff_768": [
+   0.016000000000000014,
+   0.0030000000000000027,
+   0.029000000000000026
+  ],
+  "wall_s": 18.5
+ },
+ "stsb": {
+  "use_case": "Near-duplicate / similarity scoring",
+  "dataset": "mteb/stsbenchmark-sts",
+  "metric": "Spearman",
+  "pairs": 1379,
+  "loc_768": {
+   "spearman": 0.8749
+  },
+  "loc_256": {
+   "spearman": 0.8736
+  },
+  "cloud_768": {
+   "spearman": 0.7707
+  },
+  "cloud_256": {
+   "spearman": 0.7712
+  },
+  "diff_768": [
+   -0.10419999999999996,
+   -0.12212275373343387,
+   -0.08539921116120085
+  ],
+  "wall_s": 31.8
+ },
+ "tatoeba": {
+  "use_case": "Multilingual: match a sentence to its English translation",
+  "dataset": "mteb/tatoeba-bitext-mining",
+  "metric": "accuracy (1000 candidates)",
+  "langs": {
+   "ara": {
+    "pairs": 1000,
+    "loc": 0.824,
+    "cloud": 0.915
+   },
+   "hin": {
+    "pairs": 1000,
+    "loc": 0.952,
+    "cloud": 0.97
+   },
+   "mal": {
+    "pairs": 687,
+    "loc": 0.8952,
+    "cloud": 0.9854
+   },
+   "tam": {
+    "pairs": 307,
+    "loc": 0.8176,
+    "cloud": 0.9055
+   },
+   "urd": {
+    "pairs": 1000,
+    "loc": 0.772,
+    "cloud": 0.949
+   },
+   "fra": {
+    "pairs": 1000,
+    "loc": 0.938,
+    "cloud": 0.953
+   }
+  },
+  "diff_768": [
+   0.0780937124549459,
+   0.06928313976772127,
+   0.08690428514217063
+  ],
+  "wall_s": 121.5
+ },
+ "codesearch": {
+  "use_case": "Software: docstring to Python function",
+  "dataset": "mteb/CodeSearchNetRetrieval",
+  "docs": 1000,
+  "queries": 1000,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 40.2,
+  "cloud_index_docs_per_s": 167.3,
+  "loc_768": {
+   "ndcg10": 0.956,
+   "mrr10": 0.9439,
+   "recall10": 0.992
+  },
+  "cloud_768": {
+   "ndcg10": 0.9686,
+   "mrr10": 0.96,
+   "recall10": 0.994
+  },
+  "loc_512": {
+   "ndcg10": 0.9559,
+   "mrr10": 0.9438,
+   "recall10": 0.992
+  },
+  "cloud_512": {
+   "ndcg10": 0.9671,
+   "mrr10": 0.9577,
+   "recall10": 0.995
+  },
+  "loc_256": {
+   "ndcg10": 0.9522,
+   "mrr10": 0.9395,
+   "recall10": 0.99
+  },
+  "cloud_256": {
+   "ndcg10": 0.9623,
+   "mrr10": 0.9523,
+   "recall10": 0.992
+  },
+  "loc_128": {
+   "ndcg10": 0.9338,
+   "mrr10": 0.918,
+   "recall10": 0.981
+  },
+  "cloud_128": {
+   "ndcg10": 0.9466,
+   "mrr10": 0.9337,
+   "recall10": 0.985
+  },
+  "cloud_3072": {
+   "ndcg10": 0.9713
+  },
+  "diff_768": [
+   0.012639542588529729,
+   0.005524011686995373,
+   0.019620054057665377
+  ],
+  "wall_s": 55.7
+ },
+ "nfcorpus": {
+  "use_case": "Medical: health question to research",
+  "dataset": "mteb/nfcorpus",
+  "docs": 3633,
+  "queries": 323,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 28.7,
+  "cloud_index_docs_per_s": 239.2,
+  "loc_768": {
+   "ndcg10": 0.3538,
+   "mrr10": 0.5571,
+   "recall10": 0.332
+  },
+  "cloud_768": {
+   "ndcg10": 0.4272,
+   "mrr10": 0.6386,
+   "recall10": 0.3989
+  },
+  "loc_512": {
+   "ndcg10": 0.3533,
+   "mrr10": 0.5576,
+   "recall10": 0.3352
+  },
+  "cloud_512": {
+   "ndcg10": 0.4203,
+   "mrr10": 0.6317,
+   "recall10": 0.3933
+  },
+  "loc_256": {
+   "ndcg10": 0.3343,
+   "mrr10": 0.538,
+   "recall10": 0.3187
+  },
+  "cloud_256": {
+   "ndcg10": 0.3955,
+   "mrr10": 0.6134,
+   "recall10": 0.3632
+  },
+  "loc_128": {
+   "ndcg10": 0.2855,
+   "mrr10": 0.4727,
+   "recall10": 0.2736
+  },
+  "cloud_128": {
+   "ndcg10": 0.3371,
+   "mrr10": 0.5518,
+   "recall10": 0.304
+  },
+  "cloud_3072": {
+   "ndcg10": 0.4305
+  },
+  "diff_768": [
+   0.07337061893635849,
+   0.05552334888914897,
+   0.09109508495100638
+  ],
+  "wall_s": 148.2
+ },
+ "scifact": {
+  "use_case": "Science: claim to evidence",
+  "dataset": "mteb/scifact",
+  "docs": 5183,
+  "queries": 300,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 31.9,
+  "cloud_index_docs_per_s": 251.1,
+  "loc_768": {
+   "ndcg10": 0.8526,
+   "mrr10": 0.8303,
+   "recall10": 0.9347
+  },
+  "cloud_768": {
+   "ndcg10": 0.8964,
+   "mrr10": 0.8717,
+   "recall10": 0.9767
+  },
+  "loc_512": {
+   "ndcg10": 0.8448,
+   "mrr10": 0.8219,
+   "recall10": 0.9313
+  },
+  "cloud_512": {
+   "ndcg10": 0.8977,
+   "mrr10": 0.8736,
+   "recall10": 0.9767
+  },
+  "loc_256": {
+   "ndcg10": 0.8368,
+   "mrr10": 0.816,
+   "recall10": 0.919
+  },
+  "cloud_256": {
+   "ndcg10": 0.8832,
+   "mrr10": 0.8594,
+   "recall10": 0.9639
+  },
+  "loc_128": {
+   "ndcg10": 0.7726,
+   "mrr10": 0.7536,
+   "recall10": 0.8458
+  },
+  "cloud_128": {
+   "ndcg10": 0.8333,
+   "mrr10": 0.8038,
+   "recall10": 0.9372
+  },
+  "cloud_3072": {
+   "ndcg10": 0.9002
+  },
+  "diff_768": [
+   0.04381603437899484,
+   0.01717428823997616,
+   0.07085565613539307
+  ],
+  "wall_s": 191.4
+ },
+ "quora": {
+  "use_case": "CRM/tickets: find the duplicate question",
+  "dataset": "mteb/quora",
+  "docs": 10000,
+  "queries": 300,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 112.5,
+  "cloud_index_docs_per_s": 232.0,
+  "loc_768": {
+   "ndcg10": 0.9907,
+   "mrr10": 0.9954,
+   "recall10": 0.9951
+  },
+  "cloud_768": {
+   "ndcg10": 0.9924,
+   "mrr10": 0.9933,
+   "recall10": 0.997
+  },
+  "loc_512": {
+   "ndcg10": 0.9911,
+   "mrr10": 0.9954,
+   "recall10": 0.9955
+  },
+  "cloud_512": {
+   "ndcg10": 0.9931,
+   "mrr10": 0.995,
+   "recall10": 0.9975
+  },
+  "loc_256": {
+   "ndcg10": 0.9904,
+   "mrr10": 0.9954,
+   "recall10": 0.9944
+  },
+  "cloud_256": {
+   "ndcg10": 0.9915,
+   "mrr10": 0.9917,
+   "recall10": 0.9971
+  },
+  "loc_128": {
+   "ndcg10": 0.9853,
+   "mrr10": 0.9875,
+   "recall10": 0.9928
+  },
+  "cloud_128": {
+   "ndcg10": 0.9898,
+   "mrr10": 0.9906,
+   "recall10": 0.9975
+  },
+  "cloud_3072": {
+   "ndcg10": 0.9927
+  },
+  "diff_768": [
+   0.001681405329058916,
+   -0.003755420657483932,
+   0.007139972744325846
+  ],
+  "wall_s": 143.0
+ },
+ "stackoverflow": {
+  "use_case": "Software: dev question to answer",
+  "dataset": "mteb/StackOverflowQA",
+  "docs": 8000,
+  "queries": 300,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 13.7,
+  "cloud_index_docs_per_s": 158.0,
+  "loc_768": {
+   "ndcg10": 0.898,
+   "mrr10": 0.8777,
+   "recall10": 0.96
+  },
+  "cloud_768": {
+   "ndcg10": 0.9827,
+   "mrr10": 0.9773,
+   "recall10": 1.0
+  },
+  "loc_512": {
+   "ndcg10": 0.8961,
+   "mrr10": 0.8754,
+   "recall10": 0.96
+  },
+  "cloud_512": {
+   "ndcg10": 0.9764,
+   "mrr10": 0.9709,
+   "recall10": 0.9933
+  },
+  "loc_256": {
+   "ndcg10": 0.8917,
+   "mrr10": 0.8721,
+   "recall10": 0.9533
+  },
+  "cloud_256": {
+   "ndcg10": 0.9776,
+   "mrr10": 0.9726,
+   "recall10": 0.9933
+  },
+  "loc_128": {
+   "ndcg10": 0.8337,
+   "mrr10": 0.8025,
+   "recall10": 0.9333
+  },
+  "cloud_128": {
+   "ndcg10": 0.9507,
+   "mrr10": 0.9422,
+   "recall10": 0.9767
+  },
+  "cloud_3072": {
+   "ndcg10": 0.9815
+  },
+  "diff_768": [
+   0.0847347841472037,
+   0.05899134548084308,
+   0.1115908634416776
+  ],
+  "wall_s": 682.5
+ },
+ "fiqa": {
+  "use_case": "Finance: investor question to answer",
+  "dataset": "mteb/fiqa",
+  "docs": 10000,
+  "queries": 300,
+  "metric": "nDCG@10",
+  "loc_index_docs_per_s": 31.3,
+  "cloud_index_docs_per_s": 272.8,
+  "loc_768": {
+   "ndcg10": 0.5085,
+   "mrr10": 0.5833,
+   "recall10": 0.5956
+  },
+  "cloud_768": {
+   "ndcg10": 0.7187,
+   "mrr10": 0.7763,
+   "recall10": 0.8024
+  },
+  "loc_512": {
+   "ndcg10": 0.5037,
+   "mrr10": 0.5873,
+   "recall10": 0.5763
+  },
+  "cloud_512": {
+   "ndcg10": 0.7077,
+   "mrr10": 0.7669,
+   "recall10": 0.7933
+  },
+  "loc_256": {
+   "ndcg10": 0.4799,
+   "mrr10": 0.5565,
+   "recall10": 0.569
+  },
+  "cloud_256": {
+   "ndcg10": 0.6924,
+   "mrr10": 0.7634,
+   "recall10": 0.7653
+  },
+  "loc_128": {
+   "ndcg10": 0.3869,
+   "mrr10": 0.4656,
+   "recall10": 0.4557
+  },
+  "cloud_128": {
+   "ndcg10": 0.5868,
+   "mrr10": 0.6755,
+   "recall10": 0.6433
+  },
+  "cloud_3072": {
+   "ndcg10": 0.7281
+  },
+  "diff_768": [
+   0.21019538031725837,
+   0.1761354576309615,
+   0.24187370911291572
+  ],
+  "wall_s": 366.8
+ },
+ "resume": {
+  "use_case": "HR: resume vs job description fit",
+  "dataset": "cnamuangtoun/resume-job-description-fit",
+  "metric": "ROC-AUC (Good Fit vs No Fit)",
+  "pairs": 1759,
+  "loc_768": {
+   "auc": 0.5764,
+   "spearman_3level": 0.1533
+  },
+  "loc_256": {
+   "auc": 0.5838,
+   "spearman_3level": 0.1619
+  },
+  "cloud_768": {
+   "auc": 0.5044,
+   "spearman_3level": 0.0546
+  },
+  "cloud_256": {
+   "auc": 0.5436,
+   "spearman_3level": 0.0992
+  },
+  "diff_768": [
+   -0.07200000000000006,
+   -0.10403113780228786,
+   -0.038884923674955225
+  ],
+  "wall_s": 384.2
+ }
+}
